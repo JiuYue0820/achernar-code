@@ -1,0 +1,19 @@
+{
+  "name": "achernar-web-search",
+  "version": "1.0.0",
+  "description": "Achernar first-party web search and readable-page MCP tools.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "keywords": ["achernar", "search", "research", "mcp"],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Achernar Web Search",
+    "shortDescription": "Search the web and read cited pages",
+    "longDescription": "Search public web sources through a bounded RSS endpoint and read selected pages with traceable URLs.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": ["Search", "Read"],
+    "defaultPrompt": ["Search the web for current project documentation"]
+  }
+}

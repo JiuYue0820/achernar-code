@@ -1,0 +1,77 @@
+{
+  "variant": "achernar",
+  "checks": [
+    {
+      "check": "three initial books",
+      "passed": true
+    },
+    {
+      "check": "title",
+      "passed": true
+    },
+    {
+      "check": "search has accessible label",
+      "passed": true
+    },
+    {
+      "check": "1366px light: no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "1366px dark: no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "390px light: no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "390px dark: no horizontal overflow",
+      "passed": true
+    },
+    {
+      "check": "theme persists",
+      "passed": true
+    },
+    {
+      "check": "reading filter",
+      "passed": true
+    },
+    {
+      "check": "combined search + reading",
+      "passed": true
+    },
+    {
+      "check": "selected details",
+      "passed": true
+    },
+    {
+      "check": "combined filter produces explicit empty state",
+      "passed": true
+    },
+    {
+      "check": "queued filter after clear",
+      "passed": true
+    },
+    {
+      "check": "keyboard selects details",
+      "passed": true
+    },
+    {
+      "check": "search text is not executable markup",
+      "passed": true
+    },
+    {
+      "check": "no page errors",
+      "passed": true
+    },
+    {
+      "check": "no external requests",
+      "passed": true
+    }
+  ],
+  "pagePassed": true,
+  "pageErrors": [],
+  "requests": [],
+  "readmeExists": true
+}

@@ -1,0 +1,52 @@
+{
+  "name": "achernar-code",
+  "version": "0.2.0-rc.8",
+  "private": true,
+  "description": "A terminal coding agent with live approvals, resumable sessions, MCP and bundled Skills.",
+  "license": "MIT",
+  "bin": {
+    "achernar": "cli/index.js"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "scripts": {
+    "start": "node cli/index.js",
+    "test": "node --test tests/*.test.js",
+    "test:reliability": "node --test tests/runtime-settings.test.js tests/cli-reliability.test.js tests/cli-live-controls.test.js",
+    "test:extensions": "node --test tests/extensions-mcp.test.js",
+    "test:provider-formats": "node --test tests/provider-formats.test.js",
+    "test:cli-core": "node --test tests/cli-reliability.test.js tests/runtime-settings.test.js tests/cli-git.test.js tests/cli-model-runtime.test.js tests/cli-tool-hooks.test.js tests/cli-session-history.test.js tests/cli-session-export.test.js tests/cli-machine-output.test.js tests/cli-i18n.test.js tests/cli-eval.test.js tests/cli-language-tools.test.js tests/cli-environment.test.js tests/command-process-safety.test.js tests/cli-governance.test.js tests/cli-governance-integration.test.js tests/cli-eval-ci.test.js tests/cli-eval-matrix.test.js tests/cli-process-limits.test.js tests/cli-task-input.test.js tests/cli-reasoning.test.js tests/cli-interaction-upgrade.test.js tests/cli-updates.test.js tests/cli-engineering.test.js tests/cli-projects.test.js tests/cli-model-capabilities.test.js tests/task-notifications.test.js",
+    "test:cli-tui": "node --test tests/cli-tui.test.js tests/cli-commands.test.js tests/cli-library.test.js tests/cli-live-controls.test.js tests/cli-model-wizard.test.js tests/cli-session-records.test.js tests/cli-agent-experience.test.js tests/execution-context.test.js tests/cli-i18n.test.js tests/cli-workbench.test.js tests/cli-task-input.test.js tests/cli-reasoning.test.js tests/cli-interaction-upgrade.test.js tests/cli-updates.test.js tests/cli-engineering.test.js tests/cli-projects.test.js tests/cli-model-capabilities.test.js tests/task-notifications.test.js",
+    "test:cli-package": "node scripts/test-cli-package.js",
+    "eval:cli": "node cli/eval/index.js",
+    "build:cli": "node scripts/build-cli.js",
+    "preview:cli": "node scripts/preview-cli.js",
+    "lint": "eslint cli scripts/prepare-cli-publish.js scripts/test-cli-package.js scripts/verify-cli-package.js",
+    "format": "prettier --write \"cli/**/*.js\"",
+    "format:check": "prettier --check \"cli/**/*.js\"",
+    "test:cli-coverage": "c8 --all --include=\"cli/**/*.js\" --exclude=\"cli/publish/**\" --reporter=text --reporter=json-summary node --test tests/cli-*.test.js",
+    "test:ui-templates": "node --test tests/ui-templates.test.js tests/cli-library.test.js tests/command-process-safety.test.js && python -X utf8 scripts/test-ui-templates.py"
+  },
+  "dependencies": {
+    "commander": "14.0.3",
+    "ajv": "8.20.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "partial-json": "0.1.7",
+    "linkedom": "0.18.13",
+    "zod": "4.6.4",
+    "typescript": "5.9.3",
+    "typescript-language-server": "6.0.1",
+    "diff": "8.0.2",
+    "picomatch": "4.0.7",
+    "jszip": "3.10.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "c8": "12.0.0",
+    "playwright-core": "1.63.0"
+  }
+}

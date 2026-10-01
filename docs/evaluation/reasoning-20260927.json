@@ -1,0 +1,1050 @@
+{
+  "measuredAt": "2026-09-27",
+  "kind": "achernar-reasoning-regression",
+  "note": "Exact API model IDs, isolated synthetic tasks. Model versions are provider aliases. No product comparisons. Costs use configured conservative peak prices and are estimates, not invoices. Source fingerprints describe the tested revisions before final packaging refactors.",
+  "blockedProvider": {
+    "name": "OpenCode Zen",
+    "endpoint": "https://opencode.ai/zen/v1",
+    "discoveryHttpStatus": 401,
+    "liveTasksRun": 0
+  },
+  "runs": [
+    {
+      "id": "deepseek-flash-low-suite-01",
+      "ok": true,
+      "passed": 5,
+      "total": 5,
+      "passRate": 1,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T02:11:53.060Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "model": "deepseek-flash",
+      "endpoint": "https://api.deepseek.com",
+      "reasoning": {
+        "reasoningMode": "auto",
+        "reasoningOptions": [],
+        "reasoningLevels": [],
+        "reasoningDetected": false,
+        "reasoningLevel": "low"
+      },
+      "maxOutputTokens": 4096,
+      "taskTimeoutMs": 120000,
+      "maxRounds": 10,
+      "maxCostUsd": 0.2,
+      "sourceSha256": "204dbc8c5cd1db0ca81420dbc4112548d0fc1b6730d4fa90616101a37ad4c7fc",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/reasoning.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "json-repair",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "valid JSON, preserved original fields and exact new retry setting"
+          },
+          "elapsedMs": 3978,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "low",
+          "maxOutputTokens": 4096,
+          "toolCalls": 3,
+          "usage": {
+            "prompt_tokens": 16164,
+            "completion_tokens": 455,
+            "total_tokens": 16619
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.005395199999999999,
+            "knownCostUsd": 0.005395199999999999,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3778,
+                "outputTokens": 62,
+                "costUsd": 0.0012078,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3918,
+                "outputTokens": 158,
+                "costUsd": 0.0013649999999999997,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4144,
+                "outputTokens": 94,
+                "costUsd": 0.001356,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4324,
+                "outputTokens": 141,
+                "costUsd": 0.0014664,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "multi-file-receipt",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "multi-file API, quantity, rounding, empty input, unchanged checks"
+          },
+          "elapsedMs": 6023,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "low",
+          "maxOutputTokens": 4096,
+          "toolCalls": 6,
+          "usage": {
+            "prompt_tokens": 17706,
+            "completion_tokens": 654,
+            "total_tokens": 18360
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0060966,
+            "knownCostUsd": 0.0060966,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3818,
+                "outputTokens": 150,
+                "costUsd": 0.0013253999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4283,
+                "outputTokens": 304,
+                "costUsd": 0.0016496999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4741,
+                "outputTokens": 73,
+                "costUsd": 0.0015098999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4864,
+                "outputTokens": 127,
+                "costUsd": 0.0016116000000000001,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "repair-clamp",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "five independent boundary assertions; original checks unchanged"
+          },
+          "elapsedMs": 5238,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "low",
+          "maxOutputTokens": 4096,
+          "toolCalls": 4,
+          "usage": {
+            "prompt_tokens": 16615,
+            "completion_tokens": 382,
+            "total_tokens": 16997
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0054429,
+            "knownCostUsd": 0.0054429,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3786,
+                "outputTokens": 107,
+                "costUsd": 0.0012642,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4101,
+                "outputTokens": 123,
+                "costUsd": 0.0013778999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4302,
+                "outputTokens": 72,
+                "costUsd": 0.001377,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4426,
+                "outputTokens": 80,
+                "costUsd": 0.0014238,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "filtered-search",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "filtered regex invocation, exact paths and unchanged sources"
+          },
+          "elapsedMs": 5115,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "low",
+          "maxOutputTokens": 4096,
+          "toolCalls": 3,
+          "usage": {
+            "prompt_tokens": 16705,
+            "completion_tokens": 681,
+            "total_tokens": 17386
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.005828699999999999,
+            "knownCostUsd": 0.005828699999999999,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3807,
+                "outputTokens": 229,
+                "costUsd": 0.0014168999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4099,
+                "outputTokens": 149,
+                "costUsd": 0.0014085,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4311,
+                "outputTokens": 109,
+                "costUsd": 0.0014241,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4488,
+                "outputTokens": 194,
+                "costUsd": 0.0015791999999999998,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "typed-edit",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 5881,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "low",
+          "maxOutputTokens": 4096,
+          "toolCalls": 4,
+          "usage": {
+            "prompt_tokens": 16338,
+            "completion_tokens": 366,
+            "total_tokens": 16704
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0053406,
+            "knownCostUsd": 0.0053406,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3778,
+                "outputTokens": 109,
+                "costUsd": 0.0012641999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4027,
+                "outputTokens": 103,
+                "costUsd": 0.0013317,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4208,
+                "outputTokens": 77,
+                "costUsd": 0.0013548,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4325,
+                "outputTokens": 77,
+                "costUsd": 0.0013899000000000001,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "deepseek-flash-none-wire-01",
+      "ok": true,
+      "passed": 1,
+      "total": 1,
+      "passRate": 1,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T02:40:13.447Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "model": "deepseek-flash",
+      "endpoint": "https://api.deepseek.com",
+      "reasoning": {
+        "reasoningMode": "auto",
+        "reasoningOptions": [],
+        "reasoningLevels": [],
+        "reasoningDetected": false,
+        "reasoningLevel": "none"
+      },
+      "maxOutputTokens": 4096,
+      "taskTimeoutMs": 120000,
+      "maxRounds": 8,
+      "maxCostUsd": 0.2,
+      "sourceSha256": "14c396ed8df6057f3137474ad4ed75c1029096acad3cf45a67a919498c027c9f",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/reasoning.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "typed-edit",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 4614,
+          "model": "deepseek-flash",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "none",
+          "maxOutputTokens": 4096,
+          "toolCalls": 4,
+          "usage": {
+            "prompt_tokens": 16201,
+            "completion_tokens": 387,
+            "total_tokens": 16588
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0053247,
+            "knownCostUsd": 0.0053247,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3753,
+                "outputTokens": 104,
+                "costUsd": 0.0012506999999999998,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3997,
+                "outputTokens": 102,
+                "costUsd": 0.0013215,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4177,
+                "outputTokens": 55,
+                "costUsd": 0.0013191,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-flash",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4274,
+                "outputTokens": 126,
+                "costUsd": 0.0014334,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "deepseek-v4-pro-high-suite-01",
+      "ok": true,
+      "passed": 5,
+      "total": 5,
+      "passRate": 1,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T02:12:41.089Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "model": "deepseek-v4-pro",
+      "endpoint": "https://api.deepseek.com",
+      "reasoning": {
+        "reasoningMode": "auto",
+        "reasoningOptions": [],
+        "reasoningLevels": [],
+        "reasoningDetected": false,
+        "reasoningLevel": "high"
+      },
+      "maxOutputTokens": 4096,
+      "taskTimeoutMs": 120000,
+      "maxRounds": 10,
+      "maxCostUsd": 0.2,
+      "sourceSha256": "204dbc8c5cd1db0ca81420dbc4112548d0fc1b6730d4fa90616101a37ad4c7fc",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/reasoning.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "json-repair",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "valid JSON, preserved original fields and exact new retry setting"
+          },
+          "elapsedMs": 6638,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "high",
+          "maxOutputTokens": 4096,
+          "toolCalls": 3,
+          "usage": {
+            "prompt_tokens": 16339,
+            "completion_tokens": 366,
+            "total_tokens": 16705
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.02301684,
+            "knownCostUsd": 0.02301684,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3844,
+                "outputTokens": 60,
+                "costUsd": 0.00531168,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3982,
+                "outputTokens": 134,
+                "costUsd": 0.005786880000000001,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4184,
+                "outputTokens": 60,
+                "costUsd": 0.00576048,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4329,
+                "outputTokens": 112,
+                "costUsd": 0.0061578000000000015,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "multi-file-receipt",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "multi-file API, quantity, rounding, empty input, unchanged checks"
+          },
+          "elapsedMs": 12378,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "high",
+          "maxOutputTokens": 4096,
+          "toolCalls": 7,
+          "usage": {
+            "prompt_tokens": 18803,
+            "completion_tokens": 895,
+            "total_tokens": 19698
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.02836416,
+            "knownCostUsd": 0.02836416,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3884,
+                "outputTokens": 208,
+                "costUsd": 0.005950560000000001,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4494,
+                "outputTokens": 511,
+                "costUsd": 0.00795564,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 5159,
+                "outputTokens": 67,
+                "costUsd": 0.0070752,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 5266,
+                "outputTokens": 109,
+                "costUsd": 0.00738276,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "repair-clamp",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "five independent boundary assertions; original checks unchanged"
+          },
+          "elapsedMs": 12990,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "high",
+          "maxOutputTokens": 4096,
+          "toolCalls": 6,
+          "usage": {
+            "prompt_tokens": 26436,
+            "completion_tokens": 695,
+            "total_tokens": 27131
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.03764772,
+            "knownCostUsd": 0.03764772,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3852,
+                "outputTokens": 119,
+                "costUsd": 0.00555588,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4009,
+                "outputTokens": 144,
+                "costUsd": 0.00586212,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4206,
+                "outputTokens": 105,
+                "costUsd": 0.00596772,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4583,
+                "outputTokens": 180,
+                "costUsd": 0.00676236,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4841,
+                "outputTokens": 64,
+                "costUsd": 0.00664356,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4945,
+                "outputTokens": 83,
+                "costUsd": 0.0068560800000000005,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "filtered-search",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "filtered regex invocation, exact paths and unchanged sources"
+          },
+          "elapsedMs": 8195,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "high",
+          "maxOutputTokens": 4096,
+          "toolCalls": 2,
+          "usage": {
+            "prompt_tokens": 12744,
+            "completion_tokens": 647,
+            "total_tokens": 13391
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0193842,
+            "knownCostUsd": 0.0193842,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3873,
+                "outputTokens": 336,
+                "costUsd": 0.00644292,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4272,
+                "outputTokens": 259,
+                "costUsd": 0.00666468,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4599,
+                "outputTokens": 52,
+                "costUsd": 0.0062766,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "typed-edit",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 7798,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "high",
+          "maxOutputTokens": 4096,
+          "toolCalls": 4,
+          "usage": {
+            "prompt_tokens": 16634,
+            "completion_tokens": 372,
+            "total_tokens": 17006
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.02343,
+            "knownCostUsd": 0.02343,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3844,
+                "outputTokens": 119,
+                "costUsd": 0.005545319999999999,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4104,
+                "outputTokens": 109,
+                "costUsd": 0.005848920000000001,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4291,
+                "outputTokens": 62,
+                "costUsd": 0.005909640000000001,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4395,
+                "outputTokens": 82,
+                "costUsd": 0.0061261200000000005,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    },
+    {
+      "id": "deepseek-v4-pro-max-wire-01",
+      "ok": true,
+      "passed": 1,
+      "total": 1,
+      "passRate": 1,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T02:40:19.593Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "model": "deepseek-v4-pro",
+      "endpoint": "https://api.deepseek.com",
+      "reasoning": {
+        "reasoningMode": "custom",
+        "reasoningOptions": [
+          {
+            "value": "max",
+            "label": "Custom deep"
+          }
+        ],
+        "reasoningLevels": [],
+        "reasoningDetected": false,
+        "reasoningLevel": "max"
+      },
+      "maxOutputTokens": 4096,
+      "taskTimeoutMs": 120000,
+      "maxRounds": 8,
+      "maxCostUsd": 0.2,
+      "sourceSha256": "14c396ed8df6057f3137474ad4ed75c1029096acad3cf45a67a919498c027c9f",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/reasoning.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "typed-edit",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 6132,
+          "model": "deepseek-v4-pro",
+          "endpoint": "https://api.deepseek.com",
+          "exitCode": 0,
+          "reasoningLevel": "max",
+          "maxOutputTokens": 4096,
+          "toolCalls": 2,
+          "usage": {
+            "prompt_tokens": 12040,
+            "completion_tokens": 340,
+            "total_tokens": 12380
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": 0.0172392,
+            "knownCostUsd": 0.0172392,
+            "maxCostUsd": 0.2,
+            "reservedUsd": 0,
+            "unpricedCalls": 0,
+            "calls": [
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3857,
+                "outputTokens": 72,
+                "costUsd": 0.00537636,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 3998,
+                "outputTokens": 109,
+                "costUsd": 0.0057090000000000005,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "deepseek-v4-pro",
+                "endpoint": "https://api.deepseek.com",
+                "inputTokens": 4185,
+                "outputTokens": 159,
+                "costUsd": 0.00615384,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        }
+      ]
+    }
+  ]
+}

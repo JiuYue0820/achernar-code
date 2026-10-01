@@ -1,0 +1,16 @@
+{
+  "name": "achernar-desktop-pet",
+  "version": "1.0.0",
+  "description": "First-party Achernar desktop companion and work-state indicator.",
+  "author": { "name": "Achernar Project" },
+  "keywords": ["achernar", "desktop", "pet", "status"],
+  "interface": {
+    "displayName": "Achernar Desktop Pet",
+    "shortDescription": "Desktop companion tied to agent state",
+    "longDescription": "Show a local desktop companion whose lifecycle and animation reflect Achernar idle, thinking, working, voice, and control states.",
+    "developerName": "Achernar Project",
+    "category": "Productivity",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": ["Show the desktop companion settings"]
+  }
+}

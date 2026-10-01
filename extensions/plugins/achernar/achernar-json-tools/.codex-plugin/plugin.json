@@ -1,0 +1,22 @@
+{
+  "name": "achernar-json-tools",
+  "version": "1.0.0",
+  "description": "Validate, format and inspect JSON data with JSON Pointer.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "longDescription": "Parse and format literal JSON, select values with RFC 6901 pointers and report bounded previews without accessing files or executing input.",
+    "displayName": "Achernar JSON Tools",
+    "shortDescription": "Validate, format and inspect JSON data with JSON Pointer.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Use JSON Tools for this project"
+    ]
+  }
+}

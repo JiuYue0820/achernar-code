@@ -1,0 +1,191 @@
+{
+  "ok": true,
+  "passed": 3,
+  "total": 3,
+  "passRate": 1,
+  "threshold": 1,
+  "measuredAt": "2026-09-26T19:03:04.588Z",
+  "kind": "live-model",
+  "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+  "model": "agnes-3.0-flash",
+  "endpoint": "https://apihub.agnes-ai.com/v1",
+  "sourceSha256": "2bf0170c3edcebb997636a8b26d4c137ef97de51feff1354fd09d3645b8b2db8",
+  "node": "v24.15.0",
+  "platform": "win32",
+  "results": [
+    {
+      "id": "repair-clamp",
+      "passed": true,
+      "acceptance": {
+        "passed": true,
+        "check": "five independent boundary assertions; original checks unchanged"
+      },
+      "elapsedMs": 24002,
+      "model": "agnes-3.0-flash",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "exitCode": 0,
+      "toolCalls": 4,
+      "usage": {
+        "prompt_tokens": 17101,
+        "completion_tokens": 352,
+        "total_tokens": 17453
+      },
+      "cost": {
+        "costUsd": null,
+        "knownCostUsd": 0,
+        "maxCostUsd": null,
+        "reservedUsd": 0,
+        "unpricedCalls": 4,
+        "calls": [
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 3918,
+            "outputTokens": 76,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4245,
+            "outputTokens": 105,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4427,
+            "outputTokens": 49,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4511,
+            "outputTokens": 122,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "filtered-search",
+      "passed": true,
+      "acceptance": {
+        "passed": true,
+        "check": "filtered regex invocation, exact paths and unchanged sources"
+      },
+      "elapsedMs": 10108,
+      "model": "agnes-3.0-flash",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "exitCode": 0,
+      "toolCalls": 2,
+      "usage": {
+        "prompt_tokens": 12306,
+        "completion_tokens": 299,
+        "total_tokens": 12605
+      },
+      "cost": {
+        "costUsd": null,
+        "knownCostUsd": 0,
+        "maxCostUsd": null,
+        "reservedUsd": 0,
+        "unpricedCalls": 3,
+        "calls": [
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 3937,
+            "outputTokens": 108,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4110,
+            "outputTokens": 81,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4259,
+            "outputTokens": 110,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          }
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "typed-edit",
+      "passed": true,
+      "acceptance": {
+        "passed": true,
+        "check": "numeric API, automatic diagnostics clear and original configuration"
+      },
+      "elapsedMs": 6442,
+      "model": "agnes-3.0-flash",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "exitCode": 0,
+      "toolCalls": 2,
+      "usage": {
+        "prompt_tokens": 12144,
+        "completion_tokens": 180,
+        "total_tokens": 12324
+      },
+      "cost": {
+        "costUsd": null,
+        "knownCostUsd": 0,
+        "maxCostUsd": null,
+        "reservedUsd": 0,
+        "unpricedCalls": 3,
+        "calls": [
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 3911,
+            "outputTokens": 38,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4038,
+            "outputTokens": 80,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-3.0-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4195,
+            "outputTokens": 62,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          }
+        ]
+      },
+      "error": null
+    }
+  ]
+}

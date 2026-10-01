@@ -1,0 +1,16 @@
+{
+  "name": "achernar-appearance",
+  "version": "1.0.0",
+  "description": "First-party Achernar theme, background, and visual-state integration.",
+  "author": { "name": "Achernar Project" },
+  "keywords": ["achernar", "theme", "background"],
+  "interface": {
+    "displayName": "Achernar Appearance",
+    "shortDescription": "Built-in themes and backgrounds",
+    "longDescription": "Control Achernar's self-drawn light and dark themes, backgrounds, icon colors, and restart persistence.",
+    "developerName": "Achernar Project",
+    "category": "Design",
+    "capabilities": ["Interactive"],
+    "defaultPrompt": ["Adjust the workspace theme and background"]
+  }
+}
