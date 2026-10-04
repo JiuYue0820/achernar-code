@@ -1,0 +1,41 @@
+const test = require('node:test'), assert = require('node:assert/strict');
+const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+const api = (() => { try { return require('../cli/tool-hooks'); } catch (e) { if (e.code !== 'MODULE_NOT_FOUND') throw e; return {}; } })();
+test('user hooks receive JSON, hide secrets and can deny a tool before execution', async t => {
+  assert.equal(typeof api.createToolHooks, 'function');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'achernar-hooks-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const script = path.join(root, 'hook.js');
+  fs.writeFileSync(script, `let input='';process.stdin.on('data',s=>input+=s);process.stdin.on('end',()=>{const p=JSON.parse(input);if(process.env.OPENAI_API_KEY||input.includes('test-secret'))process.exit(4);console.log(JSON.stringify({decision:'deny',message:'Custom policy blocked '+p.name}));});`);
+  const hooks = api.createToolHooks({ tool_pre: [{ command: process.execPath, args: [script] }] }, { project: root, signal: AbortSignal.timeout(5000), secrets: ['test-secret'], env: { ...process.env, OPENAI_API_KEY: 'test-secret' } });
+  const decision = await hooks.pre({ name: 'terminal', arguments: { command: 'echo test-secret' } });
+  assert.equal(decision.denied, true); assert.match(decision.message, /Custom policy/);
+});
+test('hook post errors are warnings; pre timeout fails closed and cancellation propagates', async t => {
+  assert.equal(typeof api.createToolHooks, 'function');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'achernar-hooks-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const options = { project: root, signal: AbortSignal.timeout(10000) };
+  const post = api.createToolHooks({ tool_post: [{ command: process.execPath, args: ['-e', 'process.exit(7)'] }] }, options);
+  assert.ok((await post.post({ name: 'files', result: { written: 'a' } })).warnings[0].includes('7'));
+  const pre = api.createToolHooks({ tool_pre: [{ command: process.execPath, args: ['-e', 'setTimeout(()=>{},10000)'], timeoutMs: 1000 }] }, options);
+  assert.equal((await pre.pre({ name: 'files' })).denied, true);
+  const controller = new AbortController();
+  const cancel = api.createToolHooks({ tool_pre: [{ command: process.execPath, args: ['-e', 'setTimeout(()=>{},10000)'] }] }, { ...options, signal: controller.signal });
+  const pending = cancel.pre({ name: 'files' }); setTimeout(() => controller.abort(new Error('stop hook')), 50);
+  await assert.rejects(pending, /stop hook/);
+});
+test('restricted mode retains host language services and enforces actual write roots', async t => {
+  const { createExecutionEnvironment } = require('../cli/execution-environment');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'achernar-restricted-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  fs.mkdirSync(path.join(root, 'src')); fs.mkdirSync(path.join(root, 'private'));
+  const environment = createExecutionEnvironment({ sandbox: 'restricted', writePaths: ['src'] }, root);
+  assert.equal(environment.allowsHostServices, true);
+  await assert.doesNotReject(environment.assertWrite(root, 'src/new.txt'));
+  await assert.rejects(environment.assertWrite(root, 'private/new.txt'), /write allowlist/i);
+  fs.symlinkSync(path.join(root, 'private'), path.join(root, 'src', 'alias'), process.platform === 'win32' ? 'junction' : 'dir');
+  await assert.rejects(environment.assertWrite(root, 'src/alias/new.txt'), /write allowlist/i);
+  await assert.rejects(environment.assertWrite(root, '../outside'), /project|scope|路径/i);
+  assert.match(environment.description(), /not.*OS sandbox/i);
+});

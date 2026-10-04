@@ -1,0 +1,25 @@
+const fs = require('node:fs'), path = require('node:path');
+const { child } = require('./compare-cli');
+(async () => {
+  const variant = process.argv[2]; if (!['opencode', 'achernar'].includes(variant)) throw Error('Use opencode or achernar');
+  const evidence = path.join('D:/User/Desktop/Project/Test-CLI/ui-generation-20260926', variant), work = path.join(evidence, 'project');
+  if (fs.existsSync(work)) throw Error('Refusing to overwrite existing evidence');
+  fs.mkdirSync(work, { recursive: true });
+  fs.writeFileSync(path.join(work, 'USER-NOTES.txt'), 'Preserve this user-owned note.\n');
+  const prompt = 'Create a small original offline reading-list workbench in index.html titled "Library desk". Use Segoe UI, restrained neutral solid surfaces, responsive desktop/390px layouts, and working light/dark theme switching. Include three books: "Designing Interfaces" (Reading), "The Pragmatic Programmer" (Queued), "A Philosophy of Software Design" (Reading). Provide a labeled search input, All/Reading/Queued filter buttons, and selectable rows with a details panel. Search and filter combine; show an explicit empty result. The full page must not overflow horizontally. Use any matching available bundled UI Skill/template as a starting point, then adapt it to this task. Use no network, external assets, packages, or dependencies. Preserve USER-NOTES.txt. Add a short README.md explaining how to open it and actual verification performed. Check the resulting code and finish concisely. Do not start a persistent server.';
+  fs.writeFileSync(path.join(evidence, 'task.txt'), prompt);
+  fs.writeFileSync(path.join(work, 'AGENTS.md'), 'Windows PowerShell. Keep this deliverable dependency-free. User asked for a small single HTML app. Use relevant local resources only. Finish once the requested page works.\n');
+  const env = { ...process.env, ACHERNAR_NOTIFICATIONS: '0', ACHERNAR_CLI_HOME: path.join(evidence, 'cli-home'), ACHERNAR_MODEL: 'space-bunny-free', ACHERNAR_BASE_URL: 'https://opencode.ai/zen/v1', ACHERNAR_API_FORMAT: 'openai-chat-completions', ACHERNAR_API_KEY: '', OPENAI_API_KEY: '', OPENCODE_CONFIG_CONTENT: JSON.stringify({ model: 'opencode/space-bunny-free', small_model: 'opencode/space-bunny-free', share: 'disabled', autoupdate: false }) };
+  fs.mkdirSync(env.ACHERNAR_CLI_HOME, { recursive: true });
+  fs.writeFileSync(path.join(env.ACHERNAR_CLI_HOME, 'config.json'), JSON.stringify({ modelId: env.ACHERNAR_MODEL, baseUrl: env.ACHERNAR_BASE_URL, contextWindow: 131072, apiFormat: env.ACHERNAR_API_FORMAT }));
+  const exe = variant === 'opencode' ? path.join(process.env.APPDATA, 'npm/node_modules/opencode-ai/bin/opencode.exe') : process.execPath;
+  const args = variant === 'opencode' ? ['run', '--pure', '--auto', '--model', 'opencode/space-bunny-free', '--format', 'json', prompt] : [path.resolve(__dirname, '../cli/index.js'), '--stream-json', 'run', '--approval', 'auto', '--max-rounds', '24', prompt];
+  console.log(variant + ' UI generation started (240s limit)');
+  const result = await child(exe, args, work, env, path.join(evidence, 'run'));
+  const events = result.stdout.split('\n').filter(Boolean).map(l=>{try{return JSON.parse(l)}catch{return {}}});
+  const data = events.findLast(e=>e.type==='result')?.data;
+  const final = variant === 'opencode' ? events.filter(e=>e.type==='text').map(e=>e.part.text).join('\n\n') : data?.finalContent || '';
+  fs.writeFileSync(path.join(evidence, 'final.md'), final);
+  const metrics = { variant, model: env.ACHERNAR_MODEL, elapsedMs: result.elapsedMs, exitCode: result.code, timedOut: result.timedOut, toolCalls: events.filter(e=>e.type==='tool_use'||e.event?.type==='tool_result').length, finalChars: final.length, hasHtml: fs.existsSync(path.join(work, 'index.html')), hasReadme: fs.existsSync(path.join(work, 'README.md')), notesPreserved: fs.readFileSync(path.join(work, 'USER-NOTES.txt'),'utf8') === 'Preserve this user-owned note.\n', reportedTokens: data?.totalUsage?.total_tokens ?? null };
+  fs.writeFileSync(path.join(evidence, 'metrics.json'), JSON.stringify(metrics, null, 2)); console.log(JSON.stringify(metrics));
+})().catch(e=>{console.error(e);process.exitCode=1});

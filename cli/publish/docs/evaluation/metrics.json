@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "subject": "Achernar CLI only",
+  "endpoint": "https://opencode.ai/zen/v1",
+  "host": {
+    "os": "Windows",
+    "shell": "PowerShell",
+    "node": "24.15.0"
+  },
+  "revision": "development runs before 0.2.0-rc.2",
+  "runs": [
+    {
+      "id": "repair",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "3bb0ea5ec01826a056df4d4b6078ce637a19f9b64d4d7204476fd09e69a0da14",
+      "elapsedMs": 77769,
+      "exitCode": 0,
+      "timedOut": false,
+      "testsPassed": true,
+      "acceptancePassed": true,
+      "toolCalls": 13,
+      "reportedTokens": 105864,
+      "finalChars": 1928
+    },
+    {
+      "id": "csvFirst",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "2b88b86c22869529c442099e6f1ecbc55c38522787ff58e453fb04fd6aeffdee",
+      "elapsedMs": 240036,
+      "exitCode": null,
+      "timedOut": true,
+      "testsPassed": false,
+      "testCount": 0,
+      "acceptancePassed": true,
+      "toolCalls": 8,
+      "reportedTokens": null,
+      "finalChars": 0,
+      "measurementNote": "A zero-test exit 0 is not treated as tested.",
+      "toolCountNote": "Recovered before continuation from 8 persisted tool_result events; --json was interrupted before final envelope."
+    },
+    {
+      "id": "csvContinuation",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "df93cf6f9b4a41743ef97d789899b9a46c949a11f78a1c588e29c14a825ea20a",
+      "additionalMs": 240043,
+      "exitCode": null,
+      "timedOut": true,
+      "testsPassed": true,
+      "testCount": 24,
+      "acceptancePassed": true,
+      "toolCalls": 13,
+      "finalChars": 0
+    },
+    {
+      "id": "uiFirst",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "9745e9e750252aefe77b4e2e1ae1df2cb7b8739a503a3bdfae6a36b33a7ba5a6",
+      "elapsedMs": 204408,
+      "exitCode": 1,
+      "timedOut": false,
+      "toolCalls": 27,
+      "reportedTokens": null,
+      "finalChars": 0,
+      "hasHtml": true,
+      "hasReadme": false
+    },
+    {
+      "id": "uiContinuation",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "3023a75dd958d385d92ade8054991623fafa837a6b1249a415cadf1c836dd729",
+      "additionalMs": 90093,
+      "exitCode": 0,
+      "timedOut": false,
+      "toolCalls": 16,
+      "reportedTokens": 461653,
+      "finalChars": 2320,
+      "hasReadme": true
+    },
+    {
+      "id": "historySummary",
+      "measuredAt": "2026-09-26",
+      "model": "space-bunny-free",
+      "provider": "OpenCode Zen",
+      "protocol": "openai-chat-completions",
+      "sourceSha256": "6f35cabf89a5cda4d4f040768402de64cbe5341bba991f875a62b933bf6123c2",
+      "elapsedMs": 13546,
+      "finalChars": 959,
+      "totalUsage": {
+        "prompt_tokens": 8504,
+        "completion_tokens": 985,
+        "total_tokens": 9489
+      },
+      "completed": true
+    }
+  ],
+  "limitations": [
+    "Single samples, not averages or a ranking",
+    "Unavailable token counts are null or omitted, never zero",
+    "UI continuation received independent validation evidence",
+    "CSV remained incomplete after continuation",
+    "Fixture acceptance tests are separate from real model measurements"
+  ]
+}

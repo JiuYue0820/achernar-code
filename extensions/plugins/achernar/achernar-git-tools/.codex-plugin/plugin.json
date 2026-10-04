@@ -1,0 +1,22 @@
+{
+  "name": "achernar-git-tools",
+  "version": "1.0.0",
+  "description": "Read-only Git status, history and diff inspection for project reviews.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "longDescription": "Inspect Git working-tree status, recent history and staged or unstaged diffs using bounded, read-only commands inside the configured project.",
+    "displayName": "Achernar Git Tools",
+    "shortDescription": "Read-only Git status, history and diff inspection for project reviews.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Use Git Tools for this project"
+    ]
+  }
+}

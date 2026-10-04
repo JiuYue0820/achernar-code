@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "project-tools": {
+      "command": "node",
+      "args": ["${pluginRoot}/server.js"],
+      "cwd": "${pluginRoot}",
+      "env": {
+        "ACHERNAR_PROJECT_ROOT": "${appRoot}"
+      }
+    }
+  }
+}

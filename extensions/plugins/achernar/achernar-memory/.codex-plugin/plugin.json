@@ -1,0 +1,16 @@
+{
+  "name": "achernar-memory",
+  "version": "1.0.0",
+  "description": "First-party layered memory integration for Achernar sessions and characters.",
+  "author": { "name": "Achernar Project" },
+  "keywords": ["achernar", "memory", "sessions"],
+  "interface": {
+    "displayName": "Achernar Memory",
+    "shortDescription": "Layered project and conversation memory",
+    "longDescription": "Maintain user-authorized global, recent, session, and character facts while excluding credentials and transient noise.",
+    "developerName": "Achernar Project",
+    "category": "Productivity",
+    "capabilities": ["Read", "Write"],
+    "defaultPrompt": ["Read the relevant project memory before planning"]
+  }
+}

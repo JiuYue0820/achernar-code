@@ -1,0 +1,19 @@
+{
+  "name": "achernar-project-tools",
+  "version": "1.0.0",
+  "description": "Read-only project inventory, search, and file-reading MCP tools for Achernar.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "keywords": ["achernar", "project", "code", "mcp"],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Achernar Project Tools",
+    "shortDescription": "Inspect and search the active project",
+    "longDescription": "Inspect project structure and search or read bounded text files without executing commands or writing data.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": ["Read", "Search"],
+    "defaultPrompt": ["Find the relevant files in this project"]
+  }
+}

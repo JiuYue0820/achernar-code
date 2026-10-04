@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "runtime-checks": {
+      "command": "node",
+      "args": ["${pluginRoot}/server.js"],
+      "cwd": "${pluginRoot}"
+    }
+  }
+}

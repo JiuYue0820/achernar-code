@@ -1,0 +1,100 @@
+{
+  "ok": true,
+  "passed": 1,
+  "total": 1,
+  "passRate": 1,
+  "threshold": 1,
+  "measuredAt": "2026-09-27T01:48:44.863Z",
+  "kind": "live-model",
+  "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+  "model": "agnes-2.5-flash",
+  "endpoint": "https://apihub.agnes-ai.com/v1",
+  "sourceSha256": "b14070f43ca9dd4dbd9bc542e807e9b1f7e08a7c9189665ae82a5355a86e8eea",
+  "sourceFiles": [
+    "cli/index.js",
+    "cli/agent-policy.js",
+    "cli/model-runtime.js",
+    "cli/tool-hooks.js",
+    "cli/task-input.js",
+    "cli/execution-environment.js",
+    "cli/windows-job.ps1",
+    "cli/language-tools.js",
+    "cli/lsp-client.js",
+    "src/runtime-settings.js",
+    "src/services/agent-core.js",
+    "src/services/agent-workflow.js",
+    "src/services/core-tools.js",
+    "src/services/file-mutation.js",
+    "src/services/file-diagnostics.js",
+    "src/services/diagnostics-worker.js",
+    "src/services/providers.js",
+    "src/services/llm-protocols.js",
+    "src/services/coding-context.js",
+    "src/services/search-worker.js",
+    "src/services/commands.js",
+    "cli/eval/index.js",
+    "cli/eval/report.js",
+    "cli/eval/tasks.js",
+    "cli/eval/matrix.js"
+  ],
+  "node": "v24.15.0",
+  "platform": "win32",
+  "results": [
+    {
+      "id": "typed-edit",
+      "passed": true,
+      "acceptance": {
+        "passed": true,
+        "check": "numeric API, automatic diagnostics clear and original configuration"
+      },
+      "elapsedMs": 7878,
+      "model": "agnes-2.5-flash",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "exitCode": 0,
+      "toolCalls": 3,
+      "usage": {
+        "prompt_tokens": 13308,
+        "completion_tokens": 405,
+        "total_tokens": 13713
+      },
+      "usageComplete": true,
+      "cost": {
+        "costUsd": null,
+        "knownCostUsd": 0,
+        "maxCostUsd": null,
+        "reservedUsd": 0,
+        "unpricedCalls": 3,
+        "calls": [
+          {
+            "model": "agnes-2.5-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4212,
+            "outputTokens": 83,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-2.5-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4386,
+            "outputTokens": 212,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          },
+          {
+            "model": "agnes-2.5-flash",
+            "endpoint": "https://apihub.agnes-ai.com/v1",
+            "inputTokens": 4710,
+            "outputTokens": 110,
+            "costUsd": null,
+            "estimated": false,
+            "failed": false
+          }
+        ]
+      },
+      "error": null
+    }
+  ]
+}

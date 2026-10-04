@@ -1,0 +1,30 @@
+const test = require('node:test'), assert = require('node:assert/strict');
+const fs = require('node:fs'), os = require('node:os'), path = require('node:path');
+const { execFileSync } = require('node:child_process');
+const api = (() => { try { return require('../cli/git-tools'); } catch { return {}; } })();
+test('native Git returns structured status/log, literal path diffs and stages only named files', async t => {
+  assert.equal(typeof api.createGitTools, 'function', 'native Git tools must exist');
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'achernar-git-'));
+  t.after(() => fs.rmSync(root, { recursive: true, force: true }));
+  const git = (...args) => execFileSync('git', args, { cwd: root, windowsHide: true, encoding: 'utf8' });
+  git('init', '-q'); git('config', 'core.autocrlf', 'false'); git('config', 'user.name', 'Test'); git('config', 'user.email', 'test@example.invalid');
+  fs.writeFileSync(path.join(root, 'file.txt'), 'before\n'); git('add', '--', 'file.txt'); git('commit', '-qm', 'baseline');
+  fs.writeFileSync(path.join(root, 'file.txt'), 'after\n');
+  fs.writeFileSync(path.join(root, '[draft].txt'), 'literal\n');
+  fs.writeFileSync(path.join(root, 'd.txt'), 'unrelated\n');
+  const tools = api.createGitTools(root, AbortSignal.timeout(10000));
+  assert.ok((await tools.execute({ action: 'status' })).files.some(f => f.path === 'file.txt' && f.worktree === 'M'));
+  assert.match((await tools.execute({ action: 'diff', paths: ['file.txt'] })).diff, /\+after/);
+  assert.equal((await tools.execute({ action: 'log', limit: 1 })).commits[0].subject, 'baseline');
+  await tools.execute({ action: 'stage', paths: ['[draft].txt'] });
+  assert.deepEqual(git('diff', '--cached', '--name-only').trim(), '[draft].txt');
+  for (const args of [{ action: 'stage', paths: [] }, { action: 'stage', paths: ['../outside'] }, { action: 'reset' }, { action: 'diff', revision: '--output=bad' }]) await assert.rejects(tools.execute(args));
+  assert.ok((await tools.execute({ action: 'status' })).files.some(f => f.path === 'd.txt' && f.index === '?'));
+});
+test('read-only modes allow Git inspection but never staging', () => {
+  const { LiveControls, requiresApproval } = require('../cli/live-controls');
+  const control = new LiveControls({ mode: 'plan' });
+  assert.doesNotThrow(() => control.assertAllowed('git', { action: 'status' }));
+  assert.throws(() => control.assertAllowed('git', { action: 'stage' }));
+  assert.equal(requiresApproval('code', 'git', { action: 'stage' }), true);
+});

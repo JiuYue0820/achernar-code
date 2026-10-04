@@ -1,0 +1,22 @@
+{
+  "name": "achernar-package-tools",
+  "version": "1.0.0",
+  "description": "Search npm packages and inspect published versions without installing code.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "longDescription": "Query npm package search and published version metadata with pagination, traceable registry URLs and bounded public HTTP requests.",
+    "displayName": "Achernar Package Tools",
+    "shortDescription": "Search npm packages and inspect published versions without installing ",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Use Package Tools for this project"
+    ]
+  }
+}

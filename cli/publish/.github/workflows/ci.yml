@@ -1,0 +1,78 @@
+name: CLI validation
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_eval:
+        description: "Run the real-model regression matrix (uses API credits)"
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  test:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 10
+    env:
+      ACHERNAR_NOTIFICATIONS: "0"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run test:cli-tui
+      - run: npm run eval -- --fixture --out output/eval-fixture --threshold 1
+      - run: npm run test:package
+  sandbox:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      ACHERNAR_TEST_DOCKER: "1"
+      ACHERNAR_NOTIFICATIONS: "0"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: docker pull node:24-bookworm-slim
+      - run: node --test tests/cli-environment.test.js
+  live-eval:
+    name: Live coding regression
+    if: (github.event_name == 'workflow_dispatch' && inputs.live_eval) || (github.event_name == 'push' && vars.ACHERNAR_LIVE_EVAL_ENABLED == 'true' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      ACHERNAR_EVAL_API_KEY: ${{ secrets.ACHERNAR_EVAL_API_KEY }}
+      ACHERNAR_EVAL_BASE_URL: ${{ vars.ACHERNAR_EVAL_BASE_URL }}
+      ACHERNAR_EVAL_MODELS: ${{ vars.ACHERNAR_EVAL_MODELS }}
+      ACHERNAR_EVAL_API_FORMAT: ${{ vars.ACHERNAR_EVAL_API_FORMAT }}
+      ACHERNAR_NOTIFICATIONS: "0"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node cli/eval/ci.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cli-live-report
+          path: |
+            output/eval-live/matrix-*.json
+            output/eval-live/*/report.json
+            output/eval-live/*/*/result.json

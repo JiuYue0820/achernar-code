@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "package-tools": {
+      "command": "node",
+      "args": [
+        "${pluginRoot}/server.js"
+      ],
+      "cwd": "${pluginRoot}"
+    }
+  }
+}

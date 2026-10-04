@@ -1,0 +1,78 @@
+name: Publish CLI
+on:
+  push:
+    tags: ['v*']
+permissions:
+  contents: read
+concurrency:
+  group: cli-release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  validate:
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
+        node: [22, 24]
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 15
+    env:
+      ACHERNAR_NOTIFICATIONS: '0'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+      - run: node scripts/release-metadata.js
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run test:cli-tui
+      - run: npm run eval -- --fixture --out output/release-fixture --threshold 1
+      - run: npm run test:package
+  publish:
+    if: vars.ACHERNAR_NPM_PUBLISH_ENABLED == 'true'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment: npm
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+      - run: npm install --global npm@11.5.2 --ignore-scripts
+      - run: npm ci --ignore-scripts
+      - id: release
+        run: node scripts/release-metadata.js
+      - run: npm pack --ignore-scripts
+      - name: Verify the exact tarball that will be published
+        env:
+          TARBALL: ${{ steps.release.outputs.tarball }}
+        run: |
+          npm install --prefix "$RUNNER_TEMP/achernar-release-check" --ignore-scripts --no-audit --no-fund "./$TARBALL"
+          node scripts/verify-cli-package.js "$RUNNER_TEMP/achernar-release-check/node_modules/achernar-code"
+      - name: Publish through npm trusted publishing
+        env:
+          TARBALL: ${{ steps.release.outputs.tarball }}
+          CHANNEL: ${{ steps.release.outputs.channel }}
+        run: npm publish "./$TARBALL" --tag "$CHANNEL" --provenance --access public --ignore-scripts
+      - name: Attach the same CLI tarball to GitHub
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TARBALL: ${{ steps.release.outputs.tarball }}
+          CHANNEL: ${{ steps.release.outputs.channel }}
+        run: |
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" "$TARBALL" --clobber
+          elif [ "$CHANNEL" = "next" ]; then
+            gh release create "$GITHUB_REF_NAME" "$TARBALL" --verify-tag --prerelease --title "Achernar CLI $GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md
+          else
+            gh release create "$GITHUB_REF_NAME" "$TARBALL" --verify-tag --title "Achernar CLI $GITHUB_REF_NAME" --notes-file RELEASE_NOTES.md
+          fi

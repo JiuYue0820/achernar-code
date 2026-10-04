@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Achernar Code · 60s</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="viewport" aria-label="Achernar Code 宣传动画">
+    <div id="stage" aria-hidden="true">
+      <canvas id="sky" width="1920" height="1080"></canvas>
+      <div id="title">
+        <div class="block">
+          <canvas id="art"></canvas>
+          <div class="code">CODE</div>
+          <div class="motto">Build with intent.</div>
+          <div class="cmd">&gt; <b>achernar</b></div>
+        </div>
+      </div>
+      <div id="term">
+        <div class="bar"><i class="dot"></i><i class="dot"></i><i class="dot"></i><span>PowerShell — D:\Projects\Website</span></div>
+        <div class="body">
+          <div class="out" id="out"></div>
+          <div id="dock"></div>
+          <div id="overlay"></div>
+        </div>
+      </div>
+      <div id="caption"></div>
+      <canvas id="grain" width="1920" height="1080"></canvas>
+    </div>
+    <p class="sr-only" id="live" aria-live="polite"></p>
+  </main>
+  <nav id="controls" aria-label="播放控制">
+    <button id="play" type="button" aria-label="暂停">❚❚</button>
+    <button id="reset" type="button" aria-label="从头播放">⟲</button>
+    <input id="seek" type="range" min="0" max="60000" step="10" value="0" aria-label="播放进度">
+    <span id="time">00.0 / 60.0</span>
+    <label class="opt"><input id="loop" type="checkbox" checked> 循环</label>
+    <label class="opt"><input id="grainToggle" type="checkbox" checked> 颗粒</label>
+  </nav>
+  <script src="animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{
+  "name": "achernar-runtime-checks",
+  "version": "1.0.0",
+  "description": "Achernar diagnostics for local model folders, WAV input, and OpenAI-compatible API reachability.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "keywords": ["achernar", "voice", "model", "diagnostics", "mcp"],
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Achernar Runtime Checks",
+    "shortDescription": "Inspect voice assets and API reachability",
+    "longDescription": "Check local model directories, WAV metadata, and public OpenAI-compatible endpoint reachability without accepting credentials.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": ["Diagnostics", "Read"],
+    "defaultPrompt": ["Check the configured voice runtime"]
+  }
+}

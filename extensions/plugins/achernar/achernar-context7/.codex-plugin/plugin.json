@@ -1,0 +1,22 @@
+{
+  "name": "achernar-context7",
+  "version": "1.0.0",
+  "description": "Official Context7 library resolution and current documentation, connected by Achernar.",
+  "author": {
+    "name": "Achernar Project"
+  },
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "longDescription": "Achernar integration for the official Upstash Context7 remote MCP: resolve library IDs and query version-aware documentation with source links.",
+    "displayName": "Achernar Context7",
+    "shortDescription": "Official Context7 library resolution and current documentation, connec",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read"
+    ],
+    "defaultPrompt": [
+      "Use Context7 for this project"
+    ]
+  }
+}

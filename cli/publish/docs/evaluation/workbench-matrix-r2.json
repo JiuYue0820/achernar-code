@@ -1,0 +1,466 @@
+{
+  "ok": false,
+  "kind": "live-model-matrix",
+  "measuredAt": "2026-09-27T01:45:47.185Z",
+  "threshold": 1,
+  "passed": 2,
+  "total": 10,
+  "passRate": 0.2,
+  "results": [
+    {
+      "model": "agnes-3.0-flash",
+      "directory": "01-agnes-3_0-flash",
+      "ok": false,
+      "passed": 2,
+      "total": 5,
+      "passRate": 0.4,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T01:45:36.358Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "sourceSha256": "b14070f43ca9dd4dbd9bc542e807e9b1f7e08a7c9189665ae82a5355a86e8eea",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "json-repair",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "valid JSON, preserved original fields and exact new retry setting"
+          },
+          "elapsedMs": 14155,
+          "model": "agnes-3.0-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 0,
+          "toolCalls": 4,
+          "usage": {
+            "prompt_tokens": 21409,
+            "completion_tokens": 354,
+            "total_tokens": 21763
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": null,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 5,
+            "calls": [
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 3970,
+                "outputTokens": 38,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4103,
+                "outputTokens": 107,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4290,
+                "outputTokens": 38,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4447,
+                "outputTokens": 84,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4599,
+                "outputTokens": 87,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "multi-file-receipt",
+          "passed": true,
+          "acceptance": {
+            "passed": true,
+            "check": "multi-file API, quantity, rounding, empty input, unchanged checks"
+          },
+          "elapsedMs": 15932,
+          "model": "agnes-3.0-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 0,
+          "toolCalls": 6,
+          "usage": {
+            "prompt_tokens": 22912,
+            "completion_tokens": 465,
+            "total_tokens": 23377
+          },
+          "usageComplete": true,
+          "cost": {
+            "costUsd": null,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 5,
+            "calls": [
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4007,
+                "outputTokens": 114,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4474,
+                "outputTokens": 124,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4676,
+                "outputTokens": 82,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4836,
+                "outputTokens": 47,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              },
+              {
+                "model": "agnes-3.0-flash",
+                "endpoint": "https://apihub.agnes-ai.com/v1",
+                "inputTokens": 4919,
+                "outputTokens": 98,
+                "costUsd": null,
+                "estimated": false,
+                "failed": false
+              }
+            ]
+          },
+          "error": null
+        },
+        {
+          "id": "repair-clamp",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "clamp boundary assertions failed or original checks changed"
+          },
+          "elapsedMs": 1941,
+          "model": "agnes-3.0-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "filtered-search",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "missing or invalid search artifact"
+          },
+          "elapsedMs": 1987,
+          "model": "agnes-3.0-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "typed-edit",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 2062,
+          "model": "agnes-3.0-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        }
+      ]
+    },
+    {
+      "model": "agnes-2.5-flash",
+      "directory": "02-agnes-2_5-flash",
+      "ok": false,
+      "passed": 0,
+      "total": 5,
+      "passRate": 0,
+      "threshold": 1,
+      "measuredAt": "2026-09-27T01:45:47.184Z",
+      "kind": "live-model",
+      "note": "Small fixed local coding suite; not a product ranking or general capability benchmark. Failures and timeouts count against the pass rate.",
+      "endpoint": "https://apihub.agnes-ai.com/v1",
+      "sourceSha256": "b14070f43ca9dd4dbd9bc542e807e9b1f7e08a7c9189665ae82a5355a86e8eea",
+      "sourceFiles": [
+        "cli/index.js",
+        "cli/agent-policy.js",
+        "cli/model-runtime.js",
+        "cli/tool-hooks.js",
+        "cli/task-input.js",
+        "cli/execution-environment.js",
+        "cli/windows-job.ps1",
+        "cli/language-tools.js",
+        "cli/lsp-client.js",
+        "src/runtime-settings.js",
+        "src/services/agent-core.js",
+        "src/services/agent-workflow.js",
+        "src/services/core-tools.js",
+        "src/services/file-mutation.js",
+        "src/services/file-diagnostics.js",
+        "src/services/diagnostics-worker.js",
+        "src/services/providers.js",
+        "src/services/llm-protocols.js",
+        "src/services/coding-context.js",
+        "src/services/search-worker.js",
+        "src/services/commands.js",
+        "cli/eval/index.js",
+        "cli/eval/report.js",
+        "cli/eval/tasks.js",
+        "cli/eval/matrix.js"
+      ],
+      "node": "v24.15.0",
+      "platform": "win32",
+      "results": [
+        {
+          "id": "json-repair",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "JSON repair missing or invalid"
+          },
+          "elapsedMs": 2256,
+          "model": "agnes-2.5-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "multi-file-receipt",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "receipt assertions failed or checks changed"
+          },
+          "elapsedMs": 2102,
+          "model": "agnes-2.5-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "repair-clamp",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "clamp boundary assertions failed or original checks changed"
+          },
+          "elapsedMs": 2242,
+          "model": "agnes-2.5-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "filtered-search",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "missing or invalid search artifact"
+          },
+          "elapsedMs": 1986,
+          "model": "agnes-2.5-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        },
+        {
+          "id": "typed-edit",
+          "passed": false,
+          "acceptance": {
+            "passed": false,
+            "check": "numeric API, automatic diagnostics clear and original configuration"
+          },
+          "elapsedMs": 2213,
+          "model": "agnes-2.5-flash",
+          "endpoint": "https://apihub.agnes-ai.com/v1",
+          "exitCode": 1,
+          "toolCalls": 0,
+          "usage": null,
+          "usageComplete": false,
+          "cost": {
+            "costUsd": 0,
+            "knownCostUsd": 0,
+            "maxCostUsd": null,
+            "reservedUsd": 0,
+            "unpricedCalls": 0
+          },
+          "error": {
+            "code": "PROVIDER_HTTP_ERROR",
+            "message": "Provider returned HTTP 429. Rate limit reached; wait before retrying or configure a fallback.",
+            "status": 429
+          }
+        }
+      ]
+    }
+  ],
+  "note": "Every model must meet the threshold independently. Small coding suite, not a product ranking; failures remain in the denominator."
+}

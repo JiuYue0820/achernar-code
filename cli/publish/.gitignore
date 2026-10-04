@@ -1,0 +1,14 @@
+node_modules/
+*.tgz
+*.zip
+.env
+.env.*
+!.env.example
+.npmrc
+credentials.json
+config.json
+sessions/
+output/
+outputs/
+coverage/
+*.log

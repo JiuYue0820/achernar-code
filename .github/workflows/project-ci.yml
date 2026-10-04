@@ -1,0 +1,66 @@
+name: Achernar project checks
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      live_eval:
+        description: "Run the fixed suite against the configured model (uses API credits)"
+        type: boolean
+        default: true
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      ACHERNAR_NOTIFICATIONS: "0"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm run lint
+      - run: npm run format:check
+      - run: npm test
+      - run: npm run test:cli-tui
+      - run: npm run test:cli-core
+      - run: npm run eval:cli -- --fixture --out output/eval-fixture --threshold 1
+      - run: npm run test:cli-package
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cli-fixture-report
+          path: output/eval-fixture/**/result.json
+  live-eval:
+    name: Live coding regression
+    # Run with secrets only for trusted pushes to the default branch or an explicit
+    # maintainer dispatch. pull_request never receives model credentials.
+    if: (github.event_name == 'workflow_dispatch' && inputs.live_eval) || (github.event_name == 'push' && vars.ACHERNAR_LIVE_EVAL_ENABLED == 'true' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+    runs-on: windows-latest
+    timeout-minutes: 25
+    env:
+      ACHERNAR_EVAL_API_KEY: ${{ secrets.ACHERNAR_EVAL_API_KEY }}
+      ACHERNAR_EVAL_BASE_URL: ${{ vars.ACHERNAR_EVAL_BASE_URL }}
+      ACHERNAR_EVAL_MODELS: ${{ vars.ACHERNAR_EVAL_MODELS }}
+      ACHERNAR_EVAL_API_FORMAT: ${{ vars.ACHERNAR_EVAL_API_FORMAT }}
+      ACHERNAR_NOTIFICATIONS: "0"
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: node cli/eval/ci.js
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cli-live-report
+          path: |
+            output/eval-live/matrix-*.json
+            output/eval-live/*/report.json
+            output/eval-live/*/*/result.json

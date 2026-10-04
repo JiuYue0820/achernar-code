@@ -1,0 +1,77 @@
+{
+  "name": "achernar-code",
+  "version": "0.2.0-rc.8",
+  "description": "A terminal coding agent with live approvals, resumable sessions, MCP and bundled Skills.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JiuYue0820/achernar-code.git"
+  },
+  "homepage": "https://github.com/JiuYue0820/achernar-code#readme",
+  "bugs": {
+    "url": "https://github.com/JiuYue0820/achernar-code/issues"
+  },
+  "keywords": [
+    "ai",
+    "coding-agent",
+    "cli",
+    "terminal",
+    "mcp",
+    "skills",
+    "powershell"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "tag": "next",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "bin": {
+    "achernar": "cli/index.js"
+  },
+  "files": [
+    "cli/**/*.js",
+    "cli/windows-job.ps1",
+    "src/**/*.js",
+    "src/services/windows-notifications.ps1",
+    "extensions/",
+    "docs/",
+    "LICENSE",
+    "README.md",
+    "README.zh-CN.md",
+    "USAGE.md",
+    "RELEASE_NOTES.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:package": "node scripts/check-distribution.js",
+    "test:cli-tui": "node --test tests/cli-tui.test.js tests/cli-commands.test.js tests/cli-live-controls.test.js tests/cli-model-wizard.test.js tests/cli-session-records.test.js tests/cli-agent-experience.test.js tests/execution-context.test.js tests/cli-i18n.test.js tests/cli-workbench.test.js tests/cli-task-input.test.js tests/cli-reasoning.test.js tests/cli-interaction-upgrade.test.js tests/cli-projects.test.js tests/cli-model-capabilities.test.js tests/task-notifications.test.js",
+    "eval": "node cli/eval/index.js",
+    "lint": "eslint cli scripts/verify-cli-package.js",
+    "format": "prettier --write \"cli/**/*.js\"",
+    "format:check": "prettier --check \"cli/**/*.js\"",
+    "test:cli-coverage": "c8 --all --include=\"cli/**/*.js\" --reporter=text --reporter=json-summary node --test tests/cli-*.test.js"
+  },
+  "engines": {
+    "node": ">=22.22.2"
+  },
+  "dependencies": {
+    "commander": "14.0.3",
+    "ajv": "8.20.0",
+    "@modelcontextprotocol/sdk": "1.30.0",
+    "partial-json": "0.1.7",
+    "linkedom": "0.18.13",
+    "zod": "4.6.4",
+    "typescript": "5.9.3",
+    "typescript-language-server": "6.0.1",
+    "diff": "8.0.2",
+    "picomatch": "4.0.7"
+  },
+  "devDependencies": {
+    "@eslint/js": "10.0.1",
+    "eslint": "10.11.0",
+    "globals": "17.12.0",
+    "prettier": "3.9.9",
+    "c8": "12.0.0"
+  }
+}

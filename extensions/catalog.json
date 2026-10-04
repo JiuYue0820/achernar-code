@@ -1,0 +1,304 @@
+[
+  {
+    "id": "plugins/achernar/achernar-appearance",
+    "kind": "plugins",
+    "name": "achernar-appearance",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-appearance",
+    "document": "plugins/achernar/achernar-appearance/README.md",
+    "status": "ready",
+    "description": "First-party Achernar theme, background, and visual-state integration."
+  },
+  {
+    "id": "plugins/achernar/achernar-computer-use",
+    "kind": "plugins",
+    "name": "achernar-computer-use",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-computer-use",
+    "document": "plugins/achernar/achernar-computer-use/README.md",
+    "status": "ready",
+    "description": "First-party Achernar Windows observation and control integration."
+  },
+  {
+    "id": "plugins/achernar/achernar-context7",
+    "kind": "plugins",
+    "name": "achernar-context7",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-context7",
+    "document": "plugins/achernar/achernar-context7/README.md",
+    "status": "ready",
+    "description": "Official Context7 library resolution and current documentation, connected by Achernar."
+  },
+  {
+    "id": "plugins/achernar/achernar-desktop-pet",
+    "kind": "plugins",
+    "name": "achernar-desktop-pet",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-desktop-pet",
+    "document": "plugins/achernar/achernar-desktop-pet/README.md",
+    "status": "ready",
+    "description": "First-party Achernar desktop companion and work-state indicator."
+  },
+  {
+    "id": "plugins/achernar/achernar-git-tools",
+    "kind": "plugins",
+    "name": "achernar-git-tools",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-git-tools",
+    "document": "plugins/achernar/achernar-git-tools/README.md",
+    "status": "ready",
+    "description": "Read-only Git status, history and diff inspection for project reviews."
+  },
+  {
+    "id": "plugins/achernar/achernar-json-tools",
+    "kind": "plugins",
+    "name": "achernar-json-tools",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-json-tools",
+    "document": "plugins/achernar/achernar-json-tools/README.md",
+    "status": "ready",
+    "description": "Validate, format and inspect JSON data with JSON Pointer."
+  },
+  {
+    "id": "plugins/achernar/achernar-memory",
+    "kind": "plugins",
+    "name": "achernar-memory",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-memory",
+    "document": "plugins/achernar/achernar-memory/README.md",
+    "status": "ready",
+    "description": "First-party layered memory integration for Achernar sessions and characters."
+  },
+  {
+    "id": "plugins/achernar/achernar-package-tools",
+    "kind": "plugins",
+    "name": "achernar-package-tools",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-package-tools",
+    "document": "plugins/achernar/achernar-package-tools/README.md",
+    "status": "ready",
+    "description": "Search npm packages and inspect published versions without installing code."
+  },
+  {
+    "id": "plugins/achernar/achernar-project-tools",
+    "kind": "plugins",
+    "name": "achernar-project-tools",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-project-tools",
+    "document": "plugins/achernar/achernar-project-tools/README.md",
+    "status": "ready",
+    "description": "Read-only project inventory, search, and file-reading MCP tools for Achernar."
+  },
+  {
+    "id": "plugins/achernar/achernar-runtime-checks",
+    "kind": "plugins",
+    "name": "achernar-runtime-checks",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-runtime-checks",
+    "document": "plugins/achernar/achernar-runtime-checks/README.md",
+    "status": "ready",
+    "description": "Achernar diagnostics for local model folders, WAV input, and OpenAI-compatible API reachability."
+  },
+  {
+    "id": "plugins/achernar/achernar-web-search",
+    "kind": "plugins",
+    "name": "achernar-web-search",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "plugins/achernar/achernar-web-search",
+    "document": "plugins/achernar/achernar-web-search/README.md",
+    "status": "ready",
+    "description": "Achernar first-party web search and readable-page MCP tools."
+  },
+  {
+    "id": "skills/achernar/achernar-architecture",
+    "kind": "skills",
+    "name": "achernar-architecture",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-architecture",
+    "document": "skills/achernar/achernar-architecture/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-code-review",
+    "kind": "skills",
+    "name": "achernar-code-review",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-code-review",
+    "document": "skills/achernar/achernar-code-review/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-codebase-inspection",
+    "kind": "skills",
+    "name": "achernar-codebase-inspection",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-codebase-inspection",
+    "document": "skills/achernar/achernar-codebase-inspection/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-data-analysis",
+    "kind": "skills",
+    "name": "achernar-data-analysis",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-data-analysis",
+    "document": "skills/achernar/achernar-data-analysis/SKILL.md",
+    "status": "imported",
+    "description": "数据分析、Vega-Lite 统计图表与 LaTeX 公式；真实数据、可复算输出。"
+  },
+  {
+    "id": "skills/achernar/achernar-debugging",
+    "kind": "skills",
+    "name": "achernar-debugging",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-debugging",
+    "document": "skills/achernar/achernar-debugging/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-documents",
+    "kind": "skills",
+    "name": "achernar-documents",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-documents",
+    "document": "skills/achernar/achernar-documents/SKILL.md",
+    "status": "imported",
+    "description": "PDF、Word、DOCX 文档设计与编辑：模板检索、公式、图表、导出和页面验证。"
+  },
+  {
+    "id": "skills/achernar/achernar-electron-ui",
+    "kind": "skills",
+    "name": "achernar-electron-ui",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-electron-ui",
+    "document": "skills/achernar/achernar-electron-ui/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Electron 界面：中性配色、SVG 图标、连续曲率、布局与交互验证。"
+  },
+  {
+    "id": "skills/achernar/achernar-ui-design",
+    "kind": "skills",
+    "name": "achernar-ui-design",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-ui-design",
+    "document": "skills/achernar/achernar-ui-design/SKILL.md",
+    "status": "imported",
+    "description": "软件与网站 UI 生成：官方 workbench 工作台、data-overview 数据概览、editorial 内容展示三套可运行模板，设计参考检索、SVG 与深浅色响应式验证。"
+  },
+  {
+    "id": "skills/achernar/achernar-implementation",
+    "kind": "skills",
+    "name": "achernar-implementation",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-implementation",
+    "document": "skills/achernar/achernar-implementation/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-mcp-development",
+    "kind": "skills",
+    "name": "achernar-mcp-development",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-mcp-development",
+    "document": "skills/achernar/achernar-mcp-development/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-memory",
+    "kind": "skills",
+    "name": "achernar-memory",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-memory",
+    "document": "skills/achernar/achernar-memory/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-product-planning",
+    "kind": "skills",
+    "name": "achernar-product-planning",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-product-planning",
+    "document": "skills/achernar/achernar-product-planning/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-security",
+    "kind": "skills",
+    "name": "achernar-security",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-security",
+    "document": "skills/achernar/achernar-security/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-verification",
+    "kind": "skills",
+    "name": "achernar-verification",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-verification",
+    "document": "skills/achernar/achernar-verification/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-voice-stack",
+    "kind": "skills",
+    "name": "achernar-voice-stack",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-voice-stack",
+    "document": "skills/achernar/achernar-voice-stack/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-web-research",
+    "kind": "skills",
+    "name": "achernar-web-research",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-web-research",
+    "document": "skills/achernar/achernar-web-research/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-windows-automation",
+    "kind": "skills",
+    "name": "achernar-windows-automation",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-windows-automation",
+    "document": "skills/achernar/achernar-windows-automation/SKILL.md",
+    "status": "imported",
+    "description": "Achernar Skill instructions"
+  },
+  {
+    "id": "skills/achernar/achernar-coding",
+    "kind": "skills",
+    "name": "achernar-coding",
+    "version": "1.0.0",
+    "source": "Achernar Project",
+    "path": "skills/achernar/achernar-coding",
+    "document": "skills/achernar/achernar-coding/SKILL.md",
+    "status": "ready",
+    "description": "Read project rules, make focused code changes, verify with tests, and use Achernar Code CLI."
+  }
+]

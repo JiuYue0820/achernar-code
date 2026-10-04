@@ -1,0 +1,16 @@
+{
+  "name": "achernar-computer-use",
+  "version": "1.0.0",
+  "description": "First-party Achernar Windows observation and control integration.",
+  "author": { "name": "Achernar Project" },
+  "keywords": ["achernar", "windows", "computer-use"],
+  "interface": {
+    "displayName": "Achernar Computer Use",
+    "shortDescription": "Observe and control Windows with visible approval",
+    "longDescription": "Use Achernar's Windows observation and input flow with screenshot confirmation, explicit approval, and a visible stop control.",
+    "developerName": "Achernar Project",
+    "category": "Developer Tools",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": ["Inspect the active window before taking action"]
+  }
+}
