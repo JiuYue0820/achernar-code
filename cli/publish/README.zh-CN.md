@@ -10,7 +10,7 @@
 
 [English](README.md) · [详细用法](USAGE.md) · [自身评测数据](docs/EVALUATION.md)
 
-当前为 **0.2.0-rc.8 CLI 预览版**，桌面应用继续测试，不包含在发布物中。需要自行配置模型服务商和 API 凭据，不附赠模型订阅或额度。通过下方 GitHub 版本化发行包安装；npm 注册表发布仍待维护者完成发布验证。
+当前为 **0.2.0-rc.8 CLI 预览版**，桌面应用继续测试，不包含在发布物中。需要自行配置模型服务商和 API 凭据，不附赠模型订阅或额度。
 
 本候选版加入运行设置、请求重试、命令/任务时限、正则与通配符搜索、可滚动 diff 审批及编辑后自动诊断。已实现范围与待办见[可靠性进度](docs/RELIABILITY.md)。
 
@@ -18,14 +18,26 @@ rc.8 让系统提示词在多轮之间保持不变，使服务商的提示缓存
 
 ## 安装
 
-安装 Node.js 22.22.2 或更新版本后，在 CMD / PowerShell 执行：
+安装 Node.js 22.22.2 或更新版本后，一条命令即可全局安装 `achernar` 可执行文件：
+
+```powershell
+npm install -g achernar-code
+achernar --version
+```
+
+后续更新同样走 npm:执行 `npm install -g achernar-code@latest`,或在 CLI 内输入 `/update` 检查并安装新版本。
+
+不经过 npm 注册表的替代安装(从 GitHub 发行包):
 
 ```powershell
 npm install -g https://github.com/JiuYue0820/achernar-code/releases/download/v0.2.0-rc.8/achernar-code-0.2.0-rc.8.tgz
-achernar
 ```
 
-这是通过 npm 安装 GitHub 发行包。npm registry 的按包名安装仍待账号登录和正式上传完成，不应把 `npm install -g achernar-code@next` 当作已经可用。
+或通过 Git 安装指定标签的源码:
+
+```powershell
+npm install -g github:JiuYue0820/achernar-code#v0.2.0-rc.8
+```
 
 在你需要操作的项目目录启动 `achernar`，输入 `/model add` 配置模型，输入 `/` 展开命令。
 

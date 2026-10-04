@@ -4,7 +4,7 @@ A terminal coding agent with live approval controls, resumable sessions and bund
 
 [中文介绍](README.zh-CN.md) · [Full usage guide](USAGE.md) · [Evaluation data](docs/EVALUATION.md) · [Release notes](RELEASE_NOTES.md)
 
-**CLI preview: 0.2.0-rc.8.** The desktop application is not released. Bring your own model endpoint and credentials; no model subscription or API credits are included. Install the CLI tarball from the versioned GitHub release below. npm registry publication is pending publishing verification.
+**CLI preview: 0.2.0-rc.8.** The desktop application is not released. Bring your own model endpoint and credentials; no model subscription or API credits are included.
 
 This candidate adds runtime settings, transient request retries, configurable command/task deadlines, regex/glob search, scrollable diff approvals and automatic file diagnostics. See [reliability status](docs/RELIABILITY.md) for implemented behavior and remaining work.
 
@@ -14,22 +14,28 @@ rc.8 keeps the system prompt stable across rounds so provider prompt caches can 
 
 *Renderer preview of the actual terminal cell grid, using fixture content; not a native terminal capture or a model benchmark.*
 
-## Install from GitHub
+## Install
 
-Requires **Node.js 22.22.2+** and npm. Download the npm tarball from this release:
+Requires **Node.js 22.22.2+**. One command installs the global `achernar` executable:
 
 ```powershell
-npm install -g https://github.com/JiuYue0820/achernar-code/releases/download/v0.2.0-rc.8/achernar-code-0.2.0-rc.8.tgz
+npm install -g achernar-code
 achernar --version
 ```
 
-Alternatively, install the tagged source with Git:
+Updates ship through the same registry: run `npm install -g achernar-code@latest`, or type `/update` inside the CLI to check and install the newest release.
+
+Alternative install from GitHub, without the npm registry:
+
+```powershell
+npm install -g https://github.com/JiuYue0820/achernar-code/releases/download/v0.2.0-rc.8/achernar-code-0.2.0-rc.8.tgz
+```
+
+Or install the tagged source with Git:
 
 ```powershell
 npm install -g github:JiuYue0820/achernar-code#v0.2.0-rc.8
 ```
-
-The planned npm registry package name is `achernar-code`, but registry publication is pending account authentication. **`npm install -g achernar-code@next` is not yet advertised as available.** The GitHub tarball command above does not require the project to be published to the npm registry.
 
 ## First task
 
@@ -117,4 +123,4 @@ npm run test:package
 
 Report reproducible issues with OS, Node version, protocol, expected behavior and redacted steps. Do not attach API keys, private files or full unreviewed session logs. See [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The CLI publication workflow validates a version tag, runs the Windows/Linux/macOS matrix, verifies an installed tarball, and publishes through npm trusted publishing. Account setup is still required; a configured workflow does not mean the package has shipped. Desktop release is disabled by construction. See [engineering boundaries](docs/ENGINEERING.md).
+The CLI validation workflow runs the Windows/Linux/macOS matrix and verifies an installed tarball on every push. Releases are published to the npm registry as [`achernar-code`](https://www.npmjs.com/package/achernar-code) and tagged on GitHub; `/update` inside the CLI checks the npm registry. Desktop release is disabled by construction. See [engineering boundaries](docs/ENGINEERING.md).

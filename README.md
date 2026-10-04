@@ -14,15 +14,25 @@
 
 ## 快速开始
 
-需要 Node.js ≥ 22.22.2。
+需要 Node.js ≥ 22.22.2。一条命令全局安装,之后在任意项目目录输入 `achernar` 启动:
+
+```powershell
+npm install -g achernar-code
+cd D:\Projects\YourProject
+achernar            # 或 achernar --json doctor 检查环境
+```
+
+后续更新:`npm install -g achernar-code@latest`,或在 CLI 内输入 `/update` 检查并安装新版本。
+
+从源码开发运行:
 
 ```powershell
 npm ci
 npm link
-achernar            # 或 achernar --json doctor 检查环境
+achernar
 ```
 
-也可以不经安装直接在项目源码内运行:`node cli/index.js`。配置模型后即可对话;`/settings` 是模型、执行限制、预算、扩展与语言的分组入口。
+也可以不经安装直接在项目源码内运行:`node cli/index.js`。配置模型后即可对话(`/model add` 添加模型);`/settings` 是模型、执行限制、预算、扩展与语言的分组入口。
 
 ## 开发
 
