@@ -20,7 +20,7 @@ function fixture() {
   const input = new EventEmitter(), output = new EventEmitter();
   Object.assign(input, { isRaw: false, setRawMode() {}, setEncoding() {}, resume() {}, pause() {} });
   Object.assign(output, { columns: COLS, rows: ROWS, write() {} });
-  return new TerminalUI({ input, output, project: 'D:\\Projects\\Website', model: 'your-model', version: '0.2.0', mode: 'execute', animate: false, onSubmit() {} });
+  return new TerminalUI({ input, output, project: 'D:\\Projects\\Website', model: 'your-model', version: require('../package.json').version, mode: 'execute', animate: false, onSubmit() {} });
 }
 
 const esc = (s) => s.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);

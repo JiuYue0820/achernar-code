@@ -203,7 +203,8 @@ function renderScreen(state, columns = 110, rows = 34) {
       )
     : 0;
   canvas.text(2, 1, 'Achernar', palette.soft);
-  canvas.text(w - 12, 1, 'CODE  ' + state.version, palette.dim);
+  const headerRight = 'CODE  ' + state.version;
+  canvas.text(Math.max(10, w - headerRight.length), 1, headerRight, palette.dim);
   if (state.toast && (!hasPlan || planTop > 2))
     canvas.text(x, 2, t(state.toast), palette.soft, undefined, areaWidth);
   if (welcome && y >= 12 && !state.menu) {
