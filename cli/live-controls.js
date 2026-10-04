@@ -104,21 +104,22 @@ class LiveControls {
         ui.state.approvalRequest = { name, arguments: args, project, preview };
         ui.state.approvalPreviewScroll = 0;
         const accept = () => ui.finishQuestion('allow');
+        const t = (text) => require('./i18n').translate(ui.state?.language, text);
         this.pending = { name, args, accept };
         try {
           while (true) {
             const answer = await ui.choose(
-              'Permission · ' + name,
+              t('Permission') + ' · ' + name,
               [
-                { command: 'Allow once', value: 'allow', description: 'Run this operation' },
-                { command: 'Deny', value: 'deny', description: 'Skip this operation' },
-                { command: 'Strict', value: 'strict', description: 'Ask for all operations' },
+                { command: t('Allow once'), value: 'allow', description: t('Run this operation') },
+                { command: t('Deny'), value: 'deny', description: t('Skip this operation') },
+                { command: t('Strict'), value: 'strict', description: t('Ask for all operations') },
                 {
-                  command: 'Code',
+                  command: t('Code'),
                   value: 'code',
-                  description: 'Auto-approve code edits; ask for others',
+                  description: t('Auto-approve code edits; ask for others'),
                 },
-                { command: 'Auto', value: 'auto', description: 'Approve all operations' },
+                { command: t('Auto'), value: 'auto', description: t('Approve all operations') },
               ],
               signal,
             );

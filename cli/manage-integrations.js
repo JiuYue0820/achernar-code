@@ -1,5 +1,10 @@
 'use strict';
 function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, refresh }) {
+  const t = (text) =>
+    require('./i18n').translate(
+      ui.state?.language || require('./i18n').resolveLocale(settings().language),
+      text,
+    );
   const choose = (title, entries) =>
     ui.choose(
       title,
@@ -13,23 +18,25 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
     const filename =
       supplied ||
       (await ui.ask(
-        `Path to ${kind === 'skills' || kind === 'plugins' ? kind + ' directory' : kind + ' JSON file'} (Esc to cancel):`,
+        t('Path to') + ' ' +
+          (kind === 'skills' || kind === 'plugins' ? kind + ' ' + t('directory') : kind + ' ' + t('JSON file')) +
+          ' (' + t('Esc to cancel') + '):',
       ));
     if (!filename.trim()) return;
     const target = require('node:path').resolve(cwd(), filename.trim().replace(/^"(.*)"$/, '$1'));
     if (kind === 'skills' || kind === 'plugins') {
       const item = await library.importExtension(target, kind);
-      ui.notice('Imported ' + item.name + '. Plugin MCP servers start disabled.');
+      ui.notice(t('Imported') + ' ' + item.name + '. ' + t('Plugin MCP servers start disabled.'));
       ui.catalog = require('./tui').commandCatalog(library.list());
     } else if (kind === 'mcp') {
       const servers = await library.importMcp(target);
       ui.notice(
-        `Imported ${servers.length} MCP servers (disabled). Use /mcp to review and enable.`,
+        t('Imported') + ' ' + servers.length + ' ' + t('MCP servers (disabled). Use /mcp to review and enable.'),
       );
     } else {
       const profiles = library.importModels(target);
       ui.notice(
-        `Imported ${profiles.length} model profiles. Use /model to select a saved profile.`,
+        t('Imported') + ' ' + profiles.length + ' ' + t('model profiles. Use /model to select a saved profile.'),
       );
     }
   };
@@ -60,7 +67,7 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
         });
         refresh();
         ui.notice(
-          'Model configuration saved. Use /reasoning to select or customize reasoning strength.',
+          t('Model configuration saved. Use /reasoning to select or customize reasoning strength.'),
         );
         return true;
       }
@@ -74,11 +81,11 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
       const parts = /^(models|mcp|skills|plugins)(?:\s+([\s\S]*))?$/.exec(argument);
       const kind =
         parts?.[1] ||
-        (await choose('Import', [
-          ['models', 'Model profiles from JSON'],
-          ['mcp', 'MCP server configuration'],
-          ['skills', 'Directory containing SKILL.md'],
-          ['plugins', 'Directory containing README.md and optional .mcp.json'],
+        (await choose(t('Import'), [
+          ['models', t('Model profiles from JSON')],
+          ['mcp', t('MCP server configuration')],
+          ['skills', t('Directory containing SKILL.md')],
+          ['plugins', t('Directory containing README.md and optional .mcp.json')],
         ]));
       if (kind) await importFile(kind, parts?.[2]);
       return true;
@@ -101,9 +108,9 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
       else if (id) {
         const server = servers.find((s) => s.id === id);
         const action = await choose(server.name, [
-          ['toggle', server.enabled ? 'Disable this server' : 'Enable this server'],
-          ['tools', 'Connect and list tools'],
-          ['config', 'Show connection details'],
+          ['toggle', t(server.enabled ? 'Disable this server' : 'Enable this server')],
+          ['tools', t('Connect and list tools')],
+          ['config', t('Show connection details')],
         ]);
         if (action === 'toggle') {
           if (
@@ -116,13 +123,14 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
           )
             return true;
           library.enable(id, !server.enabled, cwd());
-          ui.notice(server.name + (server.enabled ? ' disabled.' : ' enabled.'));
+          ui.notice(server.name + (server.enabled ? ' ' + t('disabled.') : ' ' + t('enabled.')));
         } else if (action === 'tools') {
           if (!server.enabled) throw new Error('Enable this MCP server before connecting.');
           if (
             !/^y(?:es)?$/i.test(
               await ui.ask(
-                `Connect to ${server.name} and list its tools? This can start its configured process. [y/N]`,
+                t('Connect to') + ' ' + server.name + ' ' +
+                  t('and list its tools? This can start its configured process. [y/N]'),
               ),
             )
           )
@@ -152,11 +160,11 @@ function createIntegrationCommands({ ui, library, cwd, settings, saveSettings, r
       return true;
     }
     const items = library.list().filter((e) => e.kind === command);
-    const id = await choose(command === 'skills' ? 'Skills library' : 'Plugin library', [
-      ['@import', 'Import from a local directory', '+ Import ' + command],
+    const id = await choose(t(command === 'skills' ? 'Skills library' : 'Plugin library'), [
+      ['@import', t('Import from a local directory'), t('+ Import') + ' ' + command],
       ...items.map((item) => [
         item.id,
-        item.protected ? 'Official / bundled · preserved' : 'Imported',
+        item.protected ? t('Official / bundled · preserved') : t('Imported'),
         item.name,
       ]),
     ]);

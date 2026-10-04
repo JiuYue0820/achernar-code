@@ -1,6 +1,11 @@
 'use strict';
 const choices = (values) =>
   values.map(([value, description]) => ({ command: value, value, description }));
+const translator = (ui, settings) => (text) =>
+  require('./i18n').translate(
+    ui.state?.language || require('./i18n').resolveLocale(settings().language),
+    text,
+  );
 async function selectModel(
   value,
   {
@@ -18,7 +23,7 @@ async function selectModel(
 ) {
   if (value) setModel(value);
   else {
-    const s = settings();
+    const s = settings(), t = translator(ui, settings);
     let models = [],
       metadata = {},
       expanded = false,
@@ -38,12 +43,12 @@ async function selectModel(
         .filter((id) => typeof id === 'string' && id && !configured.has(id))
         .slice(0, 500);
       selected = await ui.choose(
-        'Select model',
+        t('Select model'),
         [
           ...profiles.map((p, i) => ({
             value: '@profile:' + i,
             command: p.name || p.modelId,
-            description: isCurrent(p) ? 'Current model' : 'Configured · ' + p.apiFormat,
+            description: isCurrent(p) ? t('Current model') : t('Configured') + ' · ' + p.apiFormat,
             editable: true,
           })),
           ...(s.modelId && !profiles.some(isCurrent)
@@ -51,7 +56,7 @@ async function selectModel(
                 {
                   value: s.modelId,
                   command: s.modelId,
-                  description: 'Current model',
+                  description: t('Current model'),
                   editable: true,
                 },
               ]
@@ -60,39 +65,39 @@ async function selectModel(
             ? [
                 {
                   value: '@toggle-provider',
-                  command: (expanded ? '▾ Hide' : '▸ Show') + ' provider models',
+                  command: (expanded ? '▾ ' + t('Hide') : '▸ ' + t('Show')) + ' ' + t('provider models'),
                   description: discovered
-                    ? `${extra.length} other models · ${s.providerName || 'Current provider'}`
-                    : 'Discover other models only when expanded',
+                    ? `${extra.length} ${t('other models')} · ${s.providerName || t('Current provider')}`
+                    : t('Discover other models only when expanded'),
                 },
               ]
             : []),
-          ...(expanded ? choices(extra.map((id) => [id, 'Available from provider'])) : []),
+          ...(expanded ? choices(extra.map((id) => [id, t('Available from provider')])) : []),
           ...(library
             ? [
                 {
                   value: '@add',
-                  command: '+ Create model',
-                  description: 'Provider, Base URL and API Key',
+                  command: t('+ Create model'),
+                  description: t('Provider, Base URL and API Key'),
                 },
               ]
             : []),
           {
             value: '@manual',
-            command: '+ Model ID',
-            description: 'Use the current provider settings',
+            command: t('+ Model ID'),
+            description: t('Use the current provider settings'),
           },
           {
             value: '@reasoning',
-            command: 'Reasoning strength',
-            description: require('../src/reasoning').label(s) + ' · select or customize',
+            command: t('Reasoning strength'),
+            description: require('../src/reasoning').label(s) + ' · ' + t('select or customize'),
           },
           ...(library
             ? [
                 {
                   value: '@import',
-                  command: '+ Import models',
-                  description: 'Load profiles from JSON',
+                  command: t('+ Import models'),
+                  description: t('Load profiles from JSON'),
                 },
               ]
             : []),
@@ -101,8 +106,8 @@ async function selectModel(
         {
           roomy: true,
           actions: [
-            { key: 'edit-model', label: 'Ctrl+E Edit', action: 'edit' },
-            { key: 'delete', label: 'Del Delete', action: 'delete' },
+            { key: 'edit-model', label: 'Ctrl+E ' + t('Edit'), action: 'edit' },
+            { key: 'delete', label: 'Del ' + t('Delete'), action: 'delete' },
           ],
         },
       );
@@ -110,7 +115,7 @@ async function selectModel(
       expanded = !expanded;
       if (expanded && !discovered) {
         const previousStatus = ui.state.status;
-        ui.state.status = 'Loading models';
+        ui.state.status = t('Loading models');
         ui.draw();
         try {
           const result = await discoverModels();
@@ -120,7 +125,8 @@ async function selectModel(
         } catch (error) {
           expanded = false;
           ui.notice(
-            'Model discovery failed. Enter an ID manually or check /provider and /format. ' +
+            t('Model discovery failed.') + ' ' +
+              t('Enter an ID manually or check /provider and /format.') + ' ' +
               error.message,
             'error',
           );
@@ -158,7 +164,7 @@ async function selectModel(
       }
     } else if (selected === '@reasoning') await handle('/reasoning');
     else if (selected === '@manual') {
-      const id = await ui.ask('Model ID (Esc to cancel):');
+      const id = await ui.ask(t('Model ID (Esc to cancel):'));
       if (id.trim()) setModel(id.trim());
     } else if (['@edit', '@import', '@add'].includes(selected))
       await integrations.handle('/model ' + selected.slice(1));
@@ -167,7 +173,7 @@ async function selectModel(
       if (profile) {
         saveSettings(profile);
         refresh();
-        ui.notice('Selected profile: ' + profile.name);
+        ui.notice(t('Selected profile: ') + profile.name);
       }
     } else if (selected) {
       setModel(selected);

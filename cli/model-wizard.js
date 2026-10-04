@@ -10,6 +10,7 @@ const presets = [
   ['Custom', '', 'openai-chat-completions'],
 ];
 async function modelWizard(ui, current = {}, edit = false) {
+  const t = (text) => require('./i18n').translate(ui.state?.language, text);
   const draft = {
     providerName: edit ? current.providerName || current.name || 'Custom' : '',
     baseUrl: edit ? current.baseUrl || '' : '',
@@ -34,17 +35,17 @@ async function modelWizard(ui, current = {}, edit = false) {
     if (step === 5 && capabilities(draft)) {
       Object.assign(draft, applyCapabilities(draft), { limitsMode: 'auto' });
       ui.notice?.(
-        `Model limits configured automatically · Context ${draft.contextWindow.toLocaleString()} · Output ${draft.maxOutputTokens.toLocaleString()}`,
+        t('Model limits configured automatically') + ' · ' + t('Context') + ' ' + draft.contextWindow.toLocaleString() + ' · ' + t('Output') + ' ' + draft.maxOutputTokens.toLocaleString(),
       );
       break;
     }
     if (step === 0) {
       const name = await ui.choose(
-        `${edit ? 'Edit' : 'Create'} model · Provider`,
+        t(edit ? 'Edit model' : 'Create model') + ' · ' + t('Provider'),
         presets.map(([name, url]) => ({
           command: name,
           value: name,
-          description: url || 'Your own provider or local server',
+          description: url || t('Your own provider or local server'),
         })),
       );
       if (!name) return null;
@@ -61,7 +62,7 @@ async function modelWizard(ui, current = {}, edit = false) {
     }
     if (step === 4) {
       const format = await ui.choose(
-        `${edit ? 'Edit' : 'Create'} model · API format · Esc back`,
+        t(edit ? 'Edit model' : 'Create model') + ' · ' + t('API format') + ' · ' + t('Esc back'),
         require('../src/provider-formats').map((f) => ({
           command: f.name,
           value: f.id,
@@ -78,15 +79,15 @@ async function modelWizard(ui, current = {}, edit = false) {
     }
     const [key, label] = fields[step];
     const result = await ui.field({
-      title: `${edit ? 'Edit' : 'Create'} model · ${label}`,
+      title: t(edit ? 'Edit model' : 'Create model') + ' · ' + t(label),
       description:
         key === 'apiKey'
-          ? 'Masked input. Enter keeps an existing key; leave empty for local/no-auth services. Saved with Windows encryption.'
+          ? t('Masked input. Enter keeps an existing key; leave empty for local/no-auth services. Saved with Windows encryption.')
           : key === 'contextWindow'
-            ? 'Model context capacity in tokens (1024–2000000).'
+            ? t('Model context capacity in tokens (1024–2000000).')
             : key === 'maxOutputTokens'
-              ? 'Maximum output tokens including thinking; must fit inside the context limit.'
-              : 'Enter to continue. Esc returns to the previous step and keeps your input.',
+              ? t('Maximum output tokens including thinking; must fit inside the context limit.')
+              : t('Enter to continue. Esc returns to the previous step and keeps your input.'),
       initial: String(draft[key]),
       secret: key === 'apiKey',
       allowEmpty: key === 'apiKey',

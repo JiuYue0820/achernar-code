@@ -11,18 +11,23 @@ async function configureUpdates(
     install = require('./updates').installUpdate,
   },
 ) {
+  const t = (text) =>
+    require('./i18n').translate(
+      ui.state?.language || require('./i18n').resolveLocale(settings().language),
+      text,
+    );
   const action =
     value ||
-    (await ui.choose('CLI updates', [
+    (await ui.choose(t('CLI updates'), [
       {
         value: 'check',
-        command: 'Check for updates',
-        description: 'Official npm package; stable or preview channel',
+        command: t('Check for updates'),
+        description: t('Official npm package; stable or preview channel'),
       },
       {
         value: 'toggle',
-        command: 'Update notifications',
-        description: settings().updateNotifications === false ? 'Disabled' : 'Enabled',
+        command: t('Update notifications'),
+        description: settings().updateNotifications === false ? t('Disabled') : t('Enabled'),
       },
     ]));
   if (!action) return;
@@ -36,31 +41,33 @@ async function configureUpdates(
     channel = currentVersion.includes('-') ? 'next' : 'latest';
   const release = await check({ currentVersion, channel });
   if (release.status === 'unpublished') {
-    ui.notice('The CLI has not been published to npm yet.');
+    ui.notice(t('The CLI has not been published to npm yet.'));
     return;
   }
   if (release.status === 'up_to_date') {
-    ui.notice('The CLI is up to date.');
+    ui.notice(t('The CLI is up to date.'));
     return;
   }
-  ui.notice('CLI update available: ' + release.version);
-  const selected = await ui.choose('Install CLI update?', [
-    { value: 'later', command: 'Later', description: release.command },
+  ui.notice(t('CLI update available: ') + release.version);
+  const selected = await ui.choose(t('Install CLI update?'), [
+    { value: 'later', command: t('Later'), description: release.command },
     {
       value: 'install',
-      command: 'Install update',
-      description: release.version + ' · npm · restart required',
+      command: t('Install update'),
+      description: release.version + ' · npm · ' + t('restart required'),
     },
   ]);
   if (selected !== 'install') return;
   if (isRunning()) throw new Error('Stop the running task before installing an update.');
   if (manifest.name !== require('./updates').PACKAGE) {
     ui.notice(
-      'This is a development checkout. Install the released CLI in a separate environment to avoid replacing this launcher.',
+      t(
+        'This is a development checkout. Install the released CLI in a separate environment to avoid replacing this launcher.',
+      ),
     );
     return;
   }
   await install(release);
-  ui.notice('CLI update installed. Restart Achernar to use it.');
+  ui.notice(t('CLI update installed. Restart Achernar to use it.'));
 }
 module.exports = { configureUpdates };

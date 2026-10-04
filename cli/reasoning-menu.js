@@ -56,9 +56,10 @@ function saveReasoning(change, { settings, saveSettings, library }) {
   return normalized;
 }
 async function editLevels(input, ui) {
+  const t = (text) => require('./i18n').translate(ui.state?.language, text);
   let draft = reasoning.supported(input);
   while (true) {
-    const selected = await ui.choose('Custom reasoning levels · label → API value', [
+    const selected = await ui.choose(t('Custom reasoning levels · label → API value'), [
       ...draft.map((item, i) => ({
         value: '@item:' + i,
         command: item.label,
@@ -68,15 +69,15 @@ async function editLevels(input, ui) {
         ? [
             {
               value: '@add',
-              command: 'Add level',
-              description: 'Display name and exact provider API value',
+              command: t('Add level'),
+              description: t('Display name and exact provider API value'),
             },
           ]
         : []),
       {
         value: '@apply',
-        command: 'Save levels',
-        description: 'Unsupported API values will be rejected by the provider',
+        command: t('Save levels'),
+        description: t('Unsupported API values will be rejected by the provider'),
       },
     ]);
     if (!selected) return null;
@@ -85,11 +86,11 @@ async function editLevels(input, ui) {
     const item = draft[index];
     if (item) {
       const action = await ui.choose(item.label, [
-        { value: 'edit', command: 'Edit level', description: item.value },
+        { value: 'edit', command: t('Edit level'), description: item.value },
         {
           value: 'delete',
-          command: 'Remove level',
-          description: 'Remove from this model only',
+          command: t('Remove level'),
+          description: t('Remove from this model only'),
           danger: true,
         },
       ]);
@@ -99,9 +100,9 @@ async function editLevels(input, ui) {
         continue;
       }
     }
-    const label = await ui.ask(`Display name${item ? ' (currently ' + item.label + ')' : ''}:`);
+    const label = await ui.ask(t('Display name') + (item ? ' (' + t('currently') + ' ' + item.label + ')' : '') + ':');
     if (!label.trim()) continue;
-    const value = await ui.ask(`API value${item ? ' (currently ' + item.value + ')' : ''}:`);
+    const value = await ui.ask(t('API value') + (item ? ' (' + t('currently') + ' ' + item.value + ')' : '') + ':');
     if (!value.trim()) continue;
     const next = [...draft];
     next[index] = { label: label.trim(), value: value.trim() };
@@ -114,6 +115,7 @@ async function editLevels(input, ui) {
 }
 async function configureReasoning(value, context, options = {}) {
   const { ui, settings } = context;
+  const t = (text) => require('./i18n').translate(ui?.state?.language, text);
   let draft = require('../src/model-capabilities').applyCapabilities(settings()),
     change = false;
   if (options.mode) {
@@ -132,41 +134,41 @@ async function configureReasoning(value, context, options = {}) {
     draft = { ...draft, ...reasoning.select(draft, value) };
     change = true;
   } else if (ui && !change) {
-    const selected = await ui.choose('Reasoning strength · ' + (draft.modelId || 'current model'), [
+    const selected = await ui.choose(t('Reasoning strength') + ' · ' + (draft.modelId || t('current model')), [
       {
         value: '@default',
-        command: 'Provider default',
-        description: 'Omit reasoning parameter; this does not disable thinking',
+        command: t('Provider default'),
+        description: t('Omit reasoning parameter; this does not disable thinking'),
       },
       ...reasoning.supported(draft).map((item) => ({
         value: item.value,
         command: item.label,
         description:
-          (draft.reasoningLevel === item.value ? 'Selected · ' : '') + 'API: ' + item.value,
+          (draft.reasoningLevel === item.value ? t('Selected') + ' · ' : '') + 'API: ' + item.value,
       })),
       {
         value: '@configure',
-        command: 'Configure levels',
-        description: 'Automatic, custom labels / API values, or unsupported',
+        command: t('Configure levels'),
+        description: t('Automatic, custom labels / API values, or unsupported'),
       },
     ]);
     if (!selected) return null;
     if (selected === '@configure') {
-      const mode = await ui.choose('Reasoning configuration', [
+      const mode = await ui.choose(t('Reasoning configuration'), [
         {
           value: 'auto',
-          command: 'Automatic',
-          description: 'Use advertised capabilities or provider defaults',
+          command: t('Automatic'),
+          description: t('Use advertised capabilities or provider defaults'),
         },
         {
           value: 'custom',
-          command: 'Custom levels',
-          description: 'Define your own labels and API values',
+          command: t('Custom levels'),
+          description: t('Define your own labels and API values'),
         },
         {
           value: 'off',
-          command: 'Unsupported',
-          description: 'Never send a reasoning parameter; does not disable provider thinking',
+          command: t('Unsupported'),
+          description: t('Never send a reasoning parameter; does not disable provider thinking'),
         },
       ]);
       if (!mode) return null;
@@ -189,7 +191,10 @@ async function configureReasoning(value, context, options = {}) {
   const result = change ? saveReasoning(draft, context) : reasoning.normalize(draft);
   if (change && ui)
     ui.notice(
-      'Reasoning: ' + reasoning.label({ ...draft, ...result }) + '. Applies to the next task.',
+      t('Reasoning: ') +
+        reasoning.label({ ...draft, ...result }) +
+        '. ' +
+        t('Applies to the next task.'),
     );
   return result;
 }

@@ -1,6 +1,7 @@
 'use strict';
 async function answerAgentQuestion(payload, { ui, question, signal }) {
   const options = Array.isArray(payload.options) ? payload.options : [];
+  const t = (text) => require('./i18n').translate(ui.state?.language, text);
   if (!ui || !options.length)
     return { approved: true, text: await question(payload.question + ' > ', signal) };
   const selected = new Set();
@@ -11,18 +12,18 @@ async function answerAgentQuestion(payload, { ui, question, signal }) {
         ...options.map((text, i) => ({
           value: 'option:' + i,
           command: (payload.multiple ? (selected.has(text) ? '● ' : '○ ') : '') + text,
-          description: payload.multiple ? 'Toggle selection' : 'Choose this answer',
+          description: payload.multiple ? t('Toggle selection') : t('Choose this answer'),
         })),
         ...(payload.multiple
           ? [
               {
                 value: 'done',
-                command: 'Submit selection',
-                description: `${selected.size} selected`,
+                command: t('Submit selection'),
+                description: `${selected.size} ${t('selected')}`,
               },
             ]
           : []),
-        { value: 'custom', command: 'Write an answer', description: 'Use your own response' },
+        { value: 'custom', command: t('Write an answer'), description: t('Use your own response') },
       ],
       signal,
     );
@@ -34,7 +35,7 @@ async function answerAgentQuestion(payload, { ui, question, signal }) {
     }
     if (answer === 'done') {
       if (selected.size) return { approved: true, selected: [...selected], text: '' };
-      ui.toast('Select at least one answer.');
+      ui.toast(t('Select at least one answer.'));
       continue;
     }
     const value = options[Number(answer.slice(7))];

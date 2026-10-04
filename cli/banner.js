@@ -1,9 +1,13 @@
 'use strict';
 const { setTimeout: delay } = require('node:timers/promises');
 
-function frame(tick = 0, { width = 80, color = true, final = false } = {}) {
+function frame(tick = 0, { width = 80, color = true, final = false, language } = {}) {
   const dim = (text) => (color ? '\x1b[90m' + text + '\x1b[0m' : text);
   const bright = (text) => (color ? '\x1b[1m' + text + '\x1b[0m' : text);
+  const tagline = require('./i18n').translate(
+    language || require('./i18n').resolveLocale(process.env.ACHERNAR_LANGUAGE),
+    'Build with intent.',
+  );
   if (width < 54) return [bright('  *  Achernar'), dim('     CODE / YOUR WORKSPACE')];
   const sky = Array.from({ length: 7 }, () => Array(23).fill(' '));
   const put = (x, y, text) =>
@@ -34,7 +38,7 @@ function frame(tick = 0, { width = 80, color = true, final = false } = {}) {
     bright(revealed) + (final ? '' : dim('  *')),
     dim('C O D E'),
     '',
-    dim('Build with intent.'),
+    dim(tagline),
     '',
   ];
   return sky.map((row, i) => dim('  ' + row.join('')) + '  ' + text[i]);
@@ -47,7 +51,7 @@ async function showBanner({
 } = {}) {
   const terminal = Boolean(stream.isTTY) && env.TERM !== 'dumb';
   const color = terminal && !Object.hasOwn(env, 'NO_COLOR');
-  const options = { width: stream.columns || 80, color };
+  const options = { width: stream.columns || 80, color, language: require('./i18n').resolveLocale(env.ACHERNAR_LANGUAGE, env) };
   if (!terminal || !animate || env.ACHERNAR_NO_ANIMATION === '1' || (stream.rows || 24) < 14) {
     stream.write('\n' + frame(13, { ...options, final: true }).join('\n') + '\n');
     return;

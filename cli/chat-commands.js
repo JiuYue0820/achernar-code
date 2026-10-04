@@ -24,6 +24,11 @@ function createChatCommands({
   ensureProject = async () => {},
 }) {
   let session;
+  const t = (text) =>
+    require('./i18n').translate(
+      ui.state?.language || require('./i18n').resolveLocale(settings().language),
+      text,
+    );
   const refresh = () => {
     ui.context(cwd(), settings().modelId);
     ui.state.reasoning = require('../src/reasoning').label(settings());
@@ -62,7 +67,7 @@ function createChatCommands({
         );
     saveSettings(profile || { modelId: id.trim() });
     refresh();
-    ui.notice('Model selected: ' + id.trim());
+    ui.notice(t('Model selected: ') + id.trim());
   };
   function syncMessages() {
     let before = session?.messages.length || 0;
@@ -94,30 +99,30 @@ function createChatCommands({
     const turn = session?.turns?.find(
       (t) => t.start <= block.messageIndex && t.end > block.messageIndex,
     );
-    const action = await ui.choose('Message actions', [
-      { value: 'copy', command: 'Copy message', description: 'Copy the complete original text' },
+    const action = await ui.choose(t('Message actions'), [
+      { value: 'copy', command: t('Copy message'), description: t('Copy the complete original text') },
       ...(!isRunning() && turn
         ? [
             {
               value: 'rewind',
-              command: 'Rewind from this message',
-              description: 'Restore this task and all later tasks to their previous state',
+              command: t('Rewind from this message'),
+              description: t('Restore this task and all later tasks to their previous state'),
             },
           ]
         : []),
     ]);
     if (action === 'copy') await ui.copy(block.text);
     if (action !== 'rewind') return;
-    const confirm = await ui.choose('Rewind conversation and files?', [
+    const confirm = await ui.choose(t('Rewind conversation and files?'), [
       {
         value: 'keep',
-        command: 'Keep current state',
-        description: 'Return without changing anything',
+        command: t('Keep current state'),
+        description: t('Return without changing anything'),
       },
       {
         value: 'rewind',
-        command: 'Rewind tasks',
-        description: 'Restore files and conversation; /redo can restore them again',
+        command: t('Rewind tasks'),
+        description: t('Restore files and conversation; /redo can restore them again'),
       },
     ]);
     if (confirm !== 'rewind' || isRunning()) return;
@@ -125,7 +130,9 @@ function createChatCommands({
     session = changed.session;
     restoreConversation();
     ui.editor.set(changed.result.prompt || block.text);
-    ui.notice('Rewound tasks: ' + changed.result.tasks + '. Use /redo to restore.');
+    ui.notice(
+      t('Rewound tasks: ') + changed.result.tasks + '. ' + t('Use /redo to restore.'),
+    );
   }
   async function handle(text) {
     if (await workbench.handle(text)) return true;
@@ -181,8 +188,12 @@ function createChatCommands({
       }
       ui.notice(
         command === 'export'
-          ? 'Redacted session exported: ' + changed.result.path
-          : `${command === 'undo' ? 'Undone' : 'Restored'} last task · ${changed.result.files} files`,
+          ? t('Redacted session exported: ') + changed.result.path
+          : t(command === 'undo' ? 'Undone last task' : 'Restored last task') +
+            ' · ' +
+            changed.result.files +
+            ' ' +
+            t('files'),
       );
       return true;
     }
@@ -210,24 +221,24 @@ function createChatCommands({
           const selected =
             value ||
             (await choose(
-              command === 'shell' ? 'Command shell' : 'Terminal isolation',
+              t(command === 'shell' ? 'Command shell' : 'Terminal isolation'),
               command === 'shell'
                 ? shells.map((name) => [
                     name,
                     name === 'auto'
-                      ? 'PowerShell on Windows; sh elsewhere or in Docker'
-                      : 'Must be installed in the selected environment',
+                      ? t('PowerShell on Windows; sh elsewhere or in Docker')
+                      : t('Must be installed in the selected environment'),
                   ])
                 : [
-                    ['off', 'Host permissions; approval does not isolate commands'],
+                    ['off', t('Host permissions; approval does not isolate commands')],
                     [
                       'restricted',
-                      'File write allowlist; host MCP/LSP available; shell is not confined',
+                      t('File write allowlist; host MCP/LSP available; shell is not confined'),
                     ],
-                    ['job', 'Windows process / memory limits; no filesystem or network isolation'],
+                    ['job', t('Windows process / memory limits; no filesystem or network isolation')],
                     [
                       'docker',
-                      'No-network container; host MCP/LSP disabled; pre-pulled image required',
+                      t('No-network container; host MCP/LSP disabled; pre-pulled image required'),
                     ],
                   ],
             ));
@@ -288,7 +299,18 @@ function createChatCommands({
         async () => {
           const s = settings();
           ui.notice(
-            `Model: ${s.modelId || '(not selected)'}\nProvider: ${s.baseUrl}\nFormat: ${s.apiFormat}\nAPI key: ${s.apiKey ? 'available via ' + s.authSource : 'not configured (optional for local services)'}\nContext limit: ${s.contextWindow || 32768}\nMode: ${ui.state.mode || (options.review ? 'review' : options.plan ? 'plan' : 'code')}\nApproval: ${options.approval}\nSubagents: ${options.agents ? 'enabled' : 'disabled'}\nProject: ${cwd()}\nSession: ${session?.id || '(new)'}\nReported tokens: ${ui.metrics.snapshot().total ?? 'unavailable'}\n\nUse /settings for configuration and /doctor for diagnostics.`,
+            t('Model: ') + (s.modelId || t('(not selected)')) +
+              '\n' + t('Provider: ') + s.baseUrl +
+              '\n' + t('Format: ') + s.apiFormat +
+              '\n' + t('API key: ') + (s.apiKey ? t('available via') + ' ' + s.authSource : t('not configured (optional for local services)')) +
+              '\n' + t('Context limit: ') + (s.contextWindow || 32768) +
+              '\n' + t('Mode: ') + (ui.state.mode || (options.review ? 'review' : options.plan ? 'plan' : 'code')) +
+              '\n' + t('Approval: ') + options.approval +
+              '\n' + t('Subagents: ') + (options.agents ? t('enabled') : t('disabled')) +
+              '\n' + t('Project: ') + cwd() +
+              '\n' + t('Session: ') + (session?.id || t('(new)')) +
+              '\n' + t('Reported tokens: ') + (ui.metrics.snapshot().total ?? t('unavailable')) +
+              '\n\n' + t('Use /settings for configuration and /doctor for diagnostics.'),
           );
         },
       ]),
@@ -315,7 +337,7 @@ function createChatCommands({
           const url =
             value ||
             (await ui.ask(
-              `Current API base: ${settings().baseUrl}\nEnter a new API base URL (Esc to cancel):`,
+              t('Current API base: ') + settings().baseUrl + '\n' + t('Enter a new API base URL (Esc to cancel):'),
             ));
           if (url.trim()) {
             let parsed;
@@ -335,7 +357,7 @@ function createChatCommands({
                 'Use an HTTP(S) URL without credentials, query parameters or fragments.',
               );
             saveSettings({ baseUrl: url.trim().replace(/\/+$/, '') });
-            ui.notice('Provider saved: ' + settings().baseUrl);
+            ui.notice(t('Provider saved: ') + settings().baseUrl);
           }
         },
       ]),
@@ -345,7 +367,7 @@ function createChatCommands({
           const id =
             value ||
             (await choose(
-              'API format',
+              t('API format'),
               formats.map((f) => [f.id, f.name]),
             ));
           if (id) {
@@ -353,7 +375,7 @@ function createChatCommands({
             if (!format) throw new Error('Unknown API format. Use /format to choose one.');
             const defaults = formats.some((f) => f.baseUrl === settings().baseUrl);
             saveSettings({ apiFormat: id, ...(defaults ? { baseUrl: format.baseUrl } : {}) });
-            ui.notice('API format saved: ' + format.name);
+            ui.notice(t('API format saved: ') + format.name);
           }
         },
       ]),
@@ -363,7 +385,7 @@ function createChatCommands({
           const raw =
             value ||
             (await ui.ask(
-              `Context limit: ${settings().contextWindow || 32768}\nEnter the model context limit in tokens (1024–2000000):`,
+              t('Context limit: ') + (settings().contextWindow || 32768) + '\n' + t('Enter the model context limit in tokens (1024–2000000):'),
             ));
           if (raw) {
             const count = Number(raw);
@@ -371,7 +393,7 @@ function createChatCommands({
               throw new Error('Context limit must be an integer from 1024 to 2000000.');
             saveSettings({ contextWindow: count });
             refresh();
-            ui.notice('Context limit saved: ' + count);
+            ui.notice(t('Context limit saved: ') + count);
           }
         },
       ]),
@@ -380,9 +402,9 @@ function createChatCommands({
         async () => {
           const mode =
             value ||
-            (await choose('Approval mode', [
-              ['ask', 'Ask before file changes and commands'],
-              ['auto', 'Allow file changes and shell commands automatically'],
+            (await choose(t('Approval mode'), [
+              ['ask', t('Ask before file changes and commands')],
+              ['auto', t('Allow file changes and shell commands automatically')],
             ]));
           if (mode) {
             if (!['ask', 'auto'].includes(mode))
@@ -392,13 +414,13 @@ function createChatCommands({
               options.approval !== 'auto' &&
               !/^y(?:es)?$/i.test(
                 await ui.ask(
-                  'Automatic execution can modify files and run shell commands with your permissions. Enable for this CLI session? [y/N]',
+                  t('Automatic execution can modify files and run shell commands with your permissions. Enable for this CLI session? [y/N]'),
                 ),
               )
             )
               return true;
             options.approval = mode;
-            ui.notice('Approval mode: ' + mode);
+            ui.notice(t('Approval mode: ') + mode);
           }
         },
       ]),
@@ -407,15 +429,15 @@ function createChatCommands({
         async () => {
           const mode =
             value ||
-            (await choose('Execution mode', [
-              ['code', 'Read, edit and verify with tools'],
-              ['plan', 'Read-only analysis; no edits or shell commands'],
+            (await choose(t('Execution mode'), [
+              ['code', t('Read, edit and verify with tools')],
+              ['plan', t('Read-only analysis; no edits or shell commands')],
             ]));
           if (mode) {
             if (!['code', 'plan'].includes(mode)) throw new Error('Use /mode code or /mode plan.');
             options.plan = mode === 'plan';
             ui.state.mode = options.plan ? 'plan' : 'execute';
-            ui.notice('Execution mode: ' + mode);
+            ui.notice(t('Execution mode: ') + mode);
           }
         },
       ]),
@@ -449,7 +471,7 @@ function createChatCommands({
           if (saved.pendingEvents?.length) {
             saved.messages.push({
               role: 'assistant',
-              content: 'Interrupted task: inspect completed actions before continuing.',
+              content: t('Interrupted task: inspect completed actions before continuing.'),
               activities: saved.pendingEvents
                 .filter((e) => e.type === 'tool_result')
                 .map((e) => ({
@@ -469,9 +491,11 @@ function createChatCommands({
           const plan = saved.lastEvents?.findLast((event) => event.type === 'plan');
           if (plan) ui.event(plan);
           ui.notice(
-            'Resumed session ' +
+            t('Resumed session') +
+              ' ' +
               id +
-              '. Send a task to continue. Token totals start from this resume.',
+              '. ' +
+              t('Send a task to continue. Token totals start from this resume.'),
           );
         },
       ]),
@@ -498,7 +522,7 @@ function createChatCommands({
               session.directories = result.directories;
               saveSession(session);
             }
-            ui.notice('Directory admitted: ' + directory(value, cwd()));
+            ui.notice(t('Directory admitted: ') + directory(value, cwd()));
           }
         },
       ]),
