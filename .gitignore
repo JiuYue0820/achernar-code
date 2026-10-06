@@ -24,3 +24,6 @@ credentials.json
 __pycache__/
 /extensions/skills/user/
 /extensions/plugins/user/
+
+# Mimosa local security-hook state
+.mimosa/
