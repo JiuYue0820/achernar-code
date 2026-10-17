@@ -239,14 +239,8 @@ function renderScreen(state, columns = 110, rows = 34) {
         row = 3 + i,
         hovering = line.action && state.hover === `${line.action}:${line.index}`;
       if (line.userPanel) canvas.fill(left, row, areaWidth - 6, 1, '#292929');
-      else if (line.card || line.style === 'code' || line.style === 'code-title')
-        canvas.fill(
-          left,
-          row,
-          line.card ? areaWidth - 6 : areaWidth - 5,
-          1,
-          hovering ? '#303030' : '#1c1c1c',
-        );
+      else if (line.style === 'code' || line.style === 'code-title')
+        canvas.fill(left, row, areaWidth - 5, 1, hovering ? '#303030' : '#1c1c1c');
       canvas.text(
         left,
         row,

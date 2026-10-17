@@ -259,7 +259,10 @@ function handleKey(ui, name, text) {
     return;
   }
   if (name === 'up' || name === 'down') {
-    if (ui.editor.text.includes('\n')) ui.editor.key(name);
+    // An empty editor starts input history and browsing continues until the
+    // draft returns; typed content moves the caret between lines instead.
+    const browsing = !ui.state.question && ui.historyIndex < ui.history.length;
+    if (ui.editor.text && !browsing) ui.editor.key(name);
     else if (!ui.state.question) {
       if (ui.historyIndex === ui.history.length && name === 'up') ui.historyDraft = ui.editor.text;
       ui.historyIndex = Math.max(

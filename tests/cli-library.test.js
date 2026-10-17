@@ -45,7 +45,7 @@ test('download package preserves CLI official resources and excludes desktop imp
   const sourceManifest = JSON.parse(fs.readFileSync(path.join(root, 'cli/package-manifest.json'), 'utf8'));
   assert.equal(manifest.version, sourceManifest.version); assert.equal(locked.version, manifest.version);
   assert.equal(manifest.name, 'achernar-code'); assert.equal(manifest.private, undefined);
-  assert.equal(manifest.publishConfig.tag, 'next'); assert.ok(!manifest.files.includes('outputs/'));
+  assert.equal(manifest.publishConfig.tag, 'latest'); assert.ok(!manifest.files.includes('outputs/'));
   assert.deepEqual(locked.packages[''].dependencies, manifest.dependencies);
   assert.ok(Object.values(manifest.dependencies).every(v => /^\d+\.\d+\.\d+$/.test(v)));
   assert.ok(zip.file('THIRD_PARTY_NOTICES.md'));

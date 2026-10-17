@@ -99,7 +99,7 @@ test('processing output has subtle status animation, hidden thinking, tool cards
   ui.event({ type: 'tool_result', name: 'files', callId: 'read', failed: false }); ui.event({ type: 'token', delta: 'The check passed.' });
   const first = renderScreen(ui.state, 110, 40).canvas.lines(false).join('\n'); ui.state.tick = 8; const second = renderScreen(ui.state, 110, 40).canvas.lines(false).join('\n');
   assert.notEqual(first, second); assert.match(second, /Thinking · Done/); assert.doesNotMatch(second, /Inspecting the implementation/); assert.match(second, /files · main\.js · Completed/); assert.doesNotMatch(second, /✦ Achernar/);
-  const lines = second.split('\n'); assert.ok(lines.find(l => l.includes('The check passed.')).indexOf('The check') > lines.find(l => l.trim() === 'Achernar').indexOf('Achernar')); ui.close();
+  const lines = second.split('\n'); assert.ok(lines.findIndex(l => l.includes('files · main.js')) < lines.findIndex(l => l.includes('The check passed.'))); assert.doesNotMatch(second, /^Achernar$/m); ui.close();
 });
 test('tool cards retain hidden streaming output, support hover and independent command/output folding', () => {
   const { ui, output } = fixture(); output.rows = 48; ui.begin('List files'); ui.state.busy = true;
@@ -109,7 +109,7 @@ test('tool cards retain hidden streaming output, support hover and independent c
   assert.match(ui.frame.canvas.lines(false).join('\n'), /Get-ChildItem/);
   assert.doesNotMatch(ui.frame.canvas.lines(false).join('\n'), /first.js/);
   let hit = ui.frame.hitboxes.find(h => h.action === 'fold'); assert.ok(hit);
-  ui.mouse({ button: 35, x: hit.x, y: hit.y }); assert.equal(ui.frame.canvas.cells[hit.y][hit.x].bg, '#303030');
+  ui.mouse({ button: 35, x: hit.x, y: hit.y }); assert.equal(ui.frame.canvas.cells[hit.y][hit.x].bg, 'default');
   ui.mouse({ button: 0, down: true, x: hit.x, y: hit.y });
   hit = ui.frame.hitboxes.find(h => h.action === 'fold-output'); ui.mouse({ button: 0, down: true, x: hit.x, y: hit.y });
   assert.match(ui.frame.canvas.lines(false).join('\n'), /first.js/);
@@ -184,4 +184,26 @@ test('real streamed model events reach text and usage display', async t => {
   await runAgent({ host: 'cli', provider: { baseUrl: `http://127.0.0.1:${server.address().port}/v1`, modelId: 'fixture' }, project: process.cwd(), messages: [{ role: 'user', content: '检查代码' }], signal: AbortSignal.timeout(10000), emit: event => ui.event(event) });
   assert.equal(ui.metrics.snapshot().total, 128); assert.equal(ui.metrics.snapshot().estimated, false);
   assert.ok(ui.state.logs.some(block => block.kind === 'assistant' && block.text === '已检查代码。'));
+});
+test('read-only tool calls stay out of the transcript; failures still surface', () => {
+  const { ui } = fixture(); ui.state.busy = true; ui.begin('Inspect');
+  ui.event({ type: 'tool_start', name: 'files', callId: 'r1', arguments: { action: 'read', path: 'src/a.js' } });
+  ui.event({ type: 'tool_result', name: 'files', callId: 'r1', duration: 5, result: '{"content":"x"}' });
+  ui.event({ type: 'tool_start', name: 'search', callId: 's1', arguments: { query: 'needle' } });
+  ui.event({ type: 'tool_start', name: 'files', callId: 'w1', arguments: { action: 'edit', path: 'src/a.js' } });
+  ui.event({ type: 'tool_result', name: 'files', callId: 'missing', failed: true, result: '{"error":"boom"}' });
+  const text = renderScreen(ui.state, 110, 40).canvas.lines(false).join('\n');
+  assert.doesNotMatch(text, /needle/);
+  assert.match(text, /files · src\/a\.js/);
+  assert.match(text, /boom/);
+  ui.close();
+});
+test('up/down recalls history on an empty editor and moves the caret when it has content', () => {
+  const { ui } = fixture({ onSubmit: () => {} });
+  ui.history.push('/review old'); ui.historyIndex = ui.history.length;
+  ui.editor.set('draft'); ui.key('up'); assert.equal(ui.editor.text, 'draft');
+  ui.editor.set(''); ui.key('up'); assert.equal(ui.editor.text, '/review old');
+  ui.key('down'); assert.equal(ui.editor.text, '');
+  ui.editor.set('typed'); ui.key('up'); assert.equal(ui.editor.text, 'typed');
+  ui.close();
 });

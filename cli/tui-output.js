@@ -92,10 +92,8 @@ function transcriptLines(state, size) {
     cardWidth = Math.max(12, size - 4),
     bodyWidth = cardWidth - 4;
   const t = (text) => require('./i18n').translate(state.language || 'en', text);
-  let assistantHeader = false;
   state.logs.forEach((block, index) => {
     if (block.kind === 'user') {
-      assistantHeader = false;
       const panelWidth = Math.max(8, size - 6);
       content.push({ text: '', indent: 2, userPanel: true, action: 'user-message', index });
       for (const text of wrap(block.text, panelWidth))
@@ -109,10 +107,6 @@ function transcriptLines(state, size) {
       content.push({ text: '', indent: 2, userPanel: true, action: 'user-message', index });
       content.push({ text: '' });
       return;
-    }
-    if (['assistant', 'reasoning', 'tool', 'terminal'].includes(block.kind) && !assistantHeader) {
-      content.push({ text: 'Achernar', tone: 'text' });
-      assistantHeader = true;
     }
     if (foldable(block)) {
       const expanded = block.expanded ?? false,
@@ -134,7 +128,7 @@ function transcriptLines(state, size) {
       if (!expanded) {
         const suffix = ` · ${t(status)}${block.duration != null ? ` · ${(block.duration / 1000).toFixed(1)}s` : ''}`;
         const available = Math.max(1, cardWidth - width(suffix));
-        const label = `▸ ${t(title)}${block.summary ? ' · ' + block.summary.replace(/\s+/g, ' ') : ''}`;
+        const label = `${t(title)}${block.summary ? ' · ' + block.summary.replace(/\s+/g, ' ') : ''}`;
         const summary = width(label) > available ? clip(label, available - 1) + '…' : label;
         content.push({
           text: clip(summary + suffix, cardWidth),

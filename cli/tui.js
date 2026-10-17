@@ -341,28 +341,34 @@ class TerminalUI {
       this.toast('Fallback → ' + event.toModel);
     } else if (event.type === 'hook_warning') this.notice(event.message, 'error');
     else if (event.type === 'tool_start') {
-      this.state.logs.push({
-        kind: 'tool',
-        title: event.name + (event.name === 'terminal' ? ' · Command' : ''),
-        callId: event.callId,
-        toolName: event.name,
-        summary: safeText(
-          event.arguments?.command ||
-            event.arguments?.path ||
-            event.arguments?.url ||
-            event.arguments?.query ||
-            event.arguments?.action ||
-            '',
-        ),
-        text: safeText(
-          event.name === 'terminal'
-            ? event.arguments?.command || ''
-            : JSON.stringify(event.arguments || {}, null, 2),
-        ).slice(-30000),
-        expanded: Boolean(this.state.preferences.details),
-        outputExpanded: Boolean(this.state.preferences.details),
-        running: true,
-      });
+      // The transcript lists only visible work: file writes and terminal commands.
+      // Read-only calls stay silent; a failed result still surfaces as an error.
+      const mutates =
+        event.name === 'terminal' ||
+        (event.name === 'files' && !['read', 'list', 'search'].includes(event.arguments?.action));
+      if (mutates)
+        this.state.logs.push({
+          kind: 'tool',
+          title: event.name + (event.name === 'terminal' ? ' · Command' : ''),
+          callId: event.callId,
+          toolName: event.name,
+          summary: safeText(
+            event.arguments?.command ||
+              event.arguments?.path ||
+              event.arguments?.url ||
+              event.arguments?.query ||
+              event.arguments?.action ||
+              '',
+          ),
+          text: safeText(
+            event.name === 'terminal'
+              ? event.arguments?.command || ''
+              : JSON.stringify(event.arguments || {}, null, 2),
+          ).slice(-30000),
+          expanded: Boolean(this.state.preferences.details),
+          outputExpanded: Boolean(this.state.preferences.details),
+          running: true,
+        });
       this.state.scroll = 0;
     } else if (event.type === 'tool_result') {
       const block = this.state.logs.findLast((b) => b.kind === 'tool' && b.callId === event.callId);

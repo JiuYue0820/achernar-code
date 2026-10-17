@@ -41,8 +41,8 @@ function toHtml(frame) {
     return `<div>${html}</div>`;
   });
   return `<!doctype html><meta charset="utf-8"><style>
-body{margin:0;background:${BG}}pre{margin:0;padding:14px 16px;font:15px/20px 'Cascadia Mono',Consolas,monospace;color:#e6e6e6;white-space:pre}
-pre div{height:20px}pre span{display:inline-block;height:20px;vertical-align:top}.cur{background:#e6e6e6;color:${BG}}</style><pre>${rows.join('')}</pre>`;
+body{margin:0;background:${BG}}pre{margin:0;padding:14px 16px;font:17px/22px 'Cascadia Mono',Consolas,monospace;color:#e6e6e6;white-space:pre}
+pre div{height:22px}pre span{display:inline-block;height:22px;vertical-align:top}.cur{background:#e6e6e6;color:${BG}}</style><pre>${rows.join('')}</pre>`;
 }
 
 // Each scene receives a fresh UI so states do not leak between snapshots.
@@ -111,7 +111,7 @@ async function main() {
   for (const channel of ['chrome', 'msedge']) { try { browser = await chromium.launch({ channel }); break; } catch { /* next */ } }
   if (!browser) return console.log(files.join('\n'));
   try {
-    const page = await browser.newPage({ viewport: { width: Math.ceil(COLS * 8.7 + 40), height: ROWS * 20 + 30 } });
+    const page = await browser.newPage({ viewport: { width: Math.ceil(COLS * 10.2 + 40), height: ROWS * 22 + 30 } });
     for (const file of files) {
       await page.goto(pathToFileURL(file).href);
       await page.screenshot({ path: file.replace(/\.html$/, '.png') });
